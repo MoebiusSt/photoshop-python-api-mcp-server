@@ -1,9 +1,15 @@
 """Photoshop application adapter."""
 
+import os
 from typing import Optional
 
 import photoshop.api as ps
 from photoshop import Session
+from photoshop.api import constants as ps_constants
+
+# photoshop-python-api 0.24.x maps through 2025 only. Photoshop 2026 is COM 200.
+ps_constants.PHOTOSHOP_VERSION_MAPPINGS.setdefault("2026", "200")
+os.environ.setdefault("PS_VERSION", "2026")
 
 
 class PhotoshopApp:
@@ -193,28 +199,9 @@ class PhotoshopApp:
             Document: The opened document.
 
         """
-        try:
-            if hasattr(self, "session"):
-                # Close any existing document
-                if (
-                    hasattr(self.session, "active_document")
-                    and self.session.active_document
-                ):
-                    try:
-                        self.session.active_document.close()
-                    except Exception:
-                        pass
-                # Create a new session with open action
-                self.session = Session(
-                    file_path=file_path, action="open", auto_close=False
-                )
-                # Return the active document
-                return self.session.active_document
-            else:
-                return self.app.open(file_path)
-        except Exception:
-            # Fallback to direct Application if Session fails
-            return self.app.open(file_path)
+        # Session(action="open") only opens the file inside a `with` block.
+        # Call Application.open directly so MCP open_document always loads the path.
+        return self.app.open(file_path)
 
     def execute_javascript(self, script):
         """Execute JavaScript code in Photoshop.

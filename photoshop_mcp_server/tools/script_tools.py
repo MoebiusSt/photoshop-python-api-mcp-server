@@ -72,4 +72,47 @@ def register(mcp):
             }
 
     tool_name = register_tool(mcp, execute_jsx, "execute_jsx")
-    return [tool_name]
+    registered = [tool_name]
+
+    def execute_jsx_file(file_path: str) -> dict:
+        """Execute a .jsx file on disk in Photoshop via $.evalFile.
+
+        Use this for scripts in Presets/Scripts or any other folder, including
+        scripts that user actions also call.
+
+        Args:
+            file_path: Absolute path to the .jsx file.
+
+        Returns:
+            dict: success flag and eval result or error.
+
+        """
+        from pathlib import Path
+
+        path = Path(file_path)
+        if not path.is_file():
+            return {"success": False, "error": f"Script file not found: {file_path}"}
+
+        jsx_path = (
+            str(path.resolve())
+            .replace("\\", "\\\\")
+            .replace('"', '\\"')
+        )
+        script = (
+            "(function () {"
+            "app.displayDialogs = DialogModes.NO;"
+            f'var f = new File("{jsx_path}");'
+            "if (!f.exists) return JSON.stringify({success:false, error:'file not found'});"
+            "var result = $.evalFile(f);"
+            "return (result === undefined || result === null) ? 'ok' : String(result);"
+            "})()"
+        )
+        ps_app = PhotoshopApp()
+        try:
+            result = ps_app.execute_javascript(script)
+            return {"success": True, "file_path": str(path.resolve()), "result": result}
+        except Exception as e:
+            return {"success": False, "file_path": str(path.resolve()), "error": str(e)}
+
+    registered.append(register_tool(mcp, execute_jsx_file, "execute_jsx_file"))
+    return registered

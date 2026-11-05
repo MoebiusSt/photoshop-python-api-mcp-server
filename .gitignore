@@ -15,6 +15,9 @@ docs/_*
 docs/src/*
 target/*
 /venv/
+.venv/
+testimage*.jpg
+_fork_repo.py
 /run_pycharm.bat
 /.nox/
 /build/

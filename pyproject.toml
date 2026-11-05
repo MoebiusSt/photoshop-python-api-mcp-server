@@ -2,6 +2,24 @@
 requires = ["poetry-core>=1.0.0"]
 build-backend = "poetry.core.masonry.api"
 
+[project]
+name = "photoshop-mcp-server"
+version = "0.1.11"
+description = "MCP Server for Photoshop integration using photoshop-python-api"
+readme = "README.md"
+license = { text = "MIT" }
+requires-python = ">=3.10,<3.15"
+authors = [{ name = "longhao", email = "hal.long@outlook.com" }]
+dependencies = [
+    "mcp>=1.6.0",
+    "photoshop-python-api>=0.24.0",
+    "loguru>=0.7.3",
+    "tenacity>=9.0.0",
+]
+
+[project.scripts]
+photoshop-mcp-server = "photoshop_mcp_server.server:main"
+
 [tool.poetry]
 name = "photoshop-mcp-server"
 version = "0.1.11"
