@@ -3,6 +3,7 @@
 from photoshop_mcp_server.tools import (
     action_tools,
     document_tools,
+    dom_tools,
     layer_tools,
     script_tools,
     session_tools,
@@ -11,6 +12,7 @@ from photoshop_mcp_server.tools import (
 __all__ = [
     "action_tools",
     "document_tools",
+    "dom_tools",
     "layer_tools",
     "script_tools",
     "session_tools",

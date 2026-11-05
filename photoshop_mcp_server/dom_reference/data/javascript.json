@@ -1,0 +1,4422 @@
+{
+ "formatVersion": 2,
+ "product": "Core JavaScript",
+ "slug": "javascript",
+ "version": "Core JavaScript Classes",
+ "generated": "2026-11-05",
+ "runtimes": [
+  "extendscript"
+ ],
+ "counts": {
+  "objects": 22,
+  "properties": 152,
+  "events": 0,
+  "methods": 279
+ },
+ "objects": [
+  {
+   "name": "$",
+   "page": "$.html",
+   "kind": "Object",
+   "description": "The $ object provides a number of debugging facilities and informational methods.",
+   "properties": [
+    {
+     "name": "build",
+     "type": "string",
+     "description": "The ExtendScript build information.",
+     "access": "readonly",
+     "static": true
+    },
+    {
+     "name": "buildDate",
+     "type": "Date",
+     "description": "The ExtendScript build date.",
+     "access": "readonly",
+     "static": true
+    },
+    {
+     "name": "decimalPoint",
+     "type": "string",
+     "description": "The character used as the decimal point character in formatted numeric output.",
+     "access": "read/write",
+     "static": true
+    },
+    {
+     "name": "engineName",
+     "type": "string",
+     "description": "The name of the current ExtendScript engine, if set.",
+     "access": "readonly",
+     "static": true
+    },
+    {
+     "name": "error",
+     "type": "Error",
+     "description": "The most recent run-time error information.",
+     "access": "read/write",
+     "static": true
+    },
+    {
+     "name": "fileName",
+     "type": "string",
+     "description": "The file name of the current script.",
+     "access": "readonly",
+     "static": true
+    },
+    {
+     "name": "flags",
+     "type": "number",
+     "description": "Gets or sets low-level debug output flags.",
+     "access": "read/write",
+     "static": true
+    },
+    {
+     "name": "global",
+     "type": "Object",
+     "description": "A reference to the global object, which contains the JavaScript global namespace.",
+     "access": "readonly",
+     "static": true
+    },
+    {
+     "name": "hiresTimer",
+     "type": "number",
+     "description": "A high-resolution timer, measuring the time in microseconds. The timer starts when ExtendScript is initialized during the application startup sequence. Every read access resets the timer to Zero.",
+     "access": "readonly",
+     "static": true
+    },
+    {
+     "name": "includePath",
+     "type": "string",
+     "description": "The path for include files for the current script.",
+     "access": "readonly",
+     "static": true
+    },
+    {
+     "name": "level",
+     "type": "number",
+     "description": "The current debugging level, which enables or disables the JavaScript debugger.",
+     "access": "read/write",
+     "static": true
+    },
+    {
+     "name": "line",
+     "type": "number",
+     "description": "The current line number of the currently executing script.",
+     "access": "readonly",
+     "static": true
+    },
+    {
+     "name": "locale",
+     "type": "string",
+     "description": "Gets or sets the current locale.",
+     "access": "read/write",
+     "static": true
+    },
+    {
+     "name": "localize",
+     "type": "boolean",
+     "description": "Set to true to enable the extended localization features of the built-in toString() method.",
+     "access": "read/write",
+     "static": true
+    },
+    {
+     "name": "memCache",
+     "type": "number",
+     "description": "The ExtendScript memory cache size, in bytes.",
+     "access": "read/write",
+     "static": true
+    },
+    {
+     "name": "os",
+     "type": "string",
+     "description": "The current operating system version information.",
+     "access": "readonly",
+     "static": true
+    },
+    {
+     "name": "screens",
+     "type": "Object[]",
+     "description": "An array of objects containing information about the display screens attached to your computer.",
+     "access": "readonly",
+     "static": true
+    },
+    {
+     "name": "stack",
+     "type": "string",
+     "description": "The current stack trace.",
+     "access": "readonly",
+     "static": true
+    },
+    {
+     "name": "strict",
+     "type": "any",
+     "description": "Sets or clears strict mode for object modification.",
+     "access": "read/write",
+     "static": true
+    },
+    {
+     "name": "version",
+     "type": "string",
+     "description": "The version number of the ExtendScript engine.",
+     "access": "readonly",
+     "static": true
+    }
+   ],
+   "events": [],
+   "methods": [
+    {
+     "name": "about",
+     "returns": "string",
+     "static": true,
+     "description": "Shows an About box for the ExtendScript component, and returns the text for the box.",
+     "parameters": []
+    },
+    {
+     "name": "bp",
+     "returns": "void",
+     "static": true,
+     "description": "Breaks execution at the current position.",
+     "parameters": [
+      {
+       "name": "condition",
+       "type": "any",
+       "description": "A string containing a JavaScript statement to be used as a condition. If the statement evaluates to true or nonzero when this point is reached, execution stops.",
+       "optional": true
+      }
+     ]
+    },
+    {
+     "name": "colorPicker",
+     "returns": "number",
+     "static": true,
+     "description": "Invokes the platform-specific color selection dialog, and returns the selected color.",
+     "parameters": [
+      {
+       "name": "color",
+       "type": "number",
+       "description": "The color to be preselected in the dialog, as 0xRRGGBB, or -1 for the platform default."
+      }
+     ]
+    },
+    {
+     "name": "evalFile",
+     "returns": "any",
+     "static": true,
+     "description": "Loads and evaluates a file.",
+     "parameters": [
+      {
+       "name": "file",
+       "type": "File",
+       "description": "The file to load."
+      },
+      {
+       "name": "timeout",
+       "type": "number",
+       "description": "An optional timeout in milliseconds.",
+       "optional": true
+      }
+     ]
+    },
+    {
+     "name": "gc",
+     "returns": "void",
+     "static": true,
+     "description": "Initiates garbage collection in the ExtendScript engine.",
+     "parameters": []
+    },
+    {
+     "name": "getenv",
+     "returns": "string",
+     "static": true,
+     "description": "Retrieves the value of an environment variable.",
+     "parameters": [
+      {
+       "name": "name",
+       "type": "string",
+       "description": "The name of the variable."
+      }
+     ]
+    },
+    {
+     "name": "setenv",
+     "returns": "void",
+     "static": true,
+     "description": "Sets the value of an environment variable.",
+     "parameters": [
+      {
+       "name": "name",
+       "type": "string",
+       "description": "The name of the variable."
+      },
+      {
+       "name": "value",
+       "type": "string",
+       "description": "The value of the variable."
+      }
+     ]
+    },
+    {
+     "name": "sleep",
+     "returns": "void",
+     "static": true,
+     "description": "Suspends the calling thread for a number of milliseconds.",
+     "parameters": [
+      {
+       "name": "msecs",
+       "type": "number",
+       "description": "Number of milliseconds to sleep."
+      }
+     ]
+    },
+    {
+     "name": "toString",
+     "returns": "string",
+     "static": true,
+     "description": "Converts this object to a string.",
+     "parameters": []
+    },
+    {
+     "name": "write",
+     "returns": "void",
+     "static": true,
+     "description": "Prints text to the Console.",
+     "parameters": [
+      {
+       "name": "text",
+       "type": "any",
+       "description": "The text to print. All arguments are concatenated."
+      }
+     ]
+    },
+    {
+     "name": "writeln",
+     "returns": "void",
+     "static": true,
+     "description": "Prints text to the Console, and adds a newline character.",
+     "parameters": [
+      {
+       "name": "text",
+       "type": "any",
+       "description": "The text to print. All arguments are concatenated."
+      }
+     ]
+    }
+   ]
+  },
+  {
+   "name": "Array",
+   "page": "Array.html",
+   "kind": "Object",
+   "description": "An array with integer indexing and a length property.",
+   "properties": [
+    {
+     "name": "length",
+     "type": "number",
+     "description": "The length of the array",
+     "access": "read/write"
+    }
+   ],
+   "events": [],
+   "methods": [
+    {
+     "name": "Array",
+     "returns": "any[]",
+     "description": "Creates and returns a new array.",
+     "parameters": [
+      {
+       "name": "length",
+       "type": "number",
+       "description": "If no other parameters are passed, the initial length of the empty array."
+      },
+      {
+       "name": "element",
+       "type": "any",
+       "description": "If there is more than one parameter, the array is initialized with the given parameters.",
+       "optional": true
+      }
+     ]
+    },
+    {
+     "name": "concat",
+     "returns": "any[]",
+     "description": "Returns a new array created by concatenating the given values to the end of the original array.",
+     "parameters": [
+      {
+       "name": "value",
+       "type": "any",
+       "description": "Any number of values to be added to the end of the array."
+      }
+     ]
+    },
+    {
+     "name": "join",
+     "returns": "string",
+     "description": "Joins all elements of the array into a string; optionally, each element is separated by delimiter.",
+     "parameters": [
+      {
+       "name": "delimiter",
+       "type": "string",
+       "description": "A string used to separate each element of the array.",
+       "optional": true
+      }
+     ]
+    },
+    {
+     "name": "pop",
+     "returns": "any",
+     "description": "Removes the last element from the array, decreases the length by 1, and returns the value of the element.",
+     "parameters": []
+    },
+    {
+     "name": "push",
+     "returns": "number",
+     "description": "Places one or more values onto the end of the array and increases length by n.",
+     "parameters": [
+      {
+       "name": "value",
+       "type": "number",
+       "description": "Any number of values to be pushed onto the end of the array."
+      }
+     ]
+    },
+    {
+     "name": "reverse",
+     "returns": "any[]",
+     "description": "Reverses the order of the elements in the array.",
+     "parameters": []
+    },
+    {
+     "name": "shift",
+     "returns": "any",
+     "description": "Removes the first element from the array, decreases the length by 1, and returns the value of the element.",
+     "parameters": []
+    },
+    {
+     "name": "slice",
+     "returns": "any[]",
+     "description": "Creates a new array, which contains a subset of the original array's elements.",
+     "parameters": []
+    },
+    {
+     "name": "sort",
+     "returns": "void",
+     "description": "Sorts the elements of the array in place, using the given function to compare to elements.",
+     "parameters": [
+      {
+       "name": "userFunction",
+       "type": "Function",
+       "description": "A user-supplied function of the form userFunction(a, b) which returns less than 0 if a is greater than b, 0 if a and b are equal, and greater than 0 if b is greater than a."
+      }
+     ]
+    },
+    {
+     "name": "splice",
+     "returns": "any[]",
+     "description": "Removes num elements from the array beginning with index, start.",
+     "parameters": [
+      {
+       "name": "start",
+       "type": "number",
+       "description": "The index of the first element to remove. Negative values are relative to the end of the array."
+      },
+      {
+       "name": "num",
+       "type": "number",
+       "description": "The number of array elements to remove, including start. If omitted, all elements from array index start to the end of the array are removed.",
+       "optional": true
+      },
+      {
+       "name": "value",
+       "type": "any",
+       "description": "A list of one or more values to be added to the array starting at index start.",
+       "optional": true
+      }
+     ]
+    },
+    {
+     "name": "toLocaleString",
+     "returns": "string",
+     "description": "Converts an array to a string and returns the string (localized).",
+     "parameters": []
+    },
+    {
+     "name": "toSource",
+     "returns": "string",
+     "description": "Creates a string representation of this object that can be fed back to eval() to re-create an object. Works only with built-in classes.",
+     "parameters": []
+    },
+    {
+     "name": "toString",
+     "returns": "string",
+     "description": "Converts an array to a string and returns the string.",
+     "parameters": []
+    },
+    {
+     "name": "unshift",
+     "returns": "number",
+     "description": "Adds one or more elements to the beginning of the array.",
+     "parameters": [
+      {
+       "name": "value",
+       "type": "any",
+       "description": "The values of one or more elements to be added to the beginning of the array."
+      }
+     ]
+    }
+   ]
+  },
+  {
+   "name": "Boolean",
+   "page": "Boolean.html",
+   "kind": "Object",
+   "description": "Wraps a Boolean value.",
+   "properties": [],
+   "events": [],
+   "methods": [
+    {
+     "name": "Boolean",
+     "returns": "boolean",
+     "description": "Creates and returns a new Boolean object set to the value of the argument converted to a boolean.",
+     "parameters": [
+      {
+       "name": "value",
+       "type": "any",
+       "description": "The value to be converted to a Boolean."
+      }
+     ]
+    },
+    {
+     "name": "toSource",
+     "returns": "string",
+     "description": "Creates a string representation of this object that can be fed back to eval() to re-create an object. Works only with built-in classes.",
+     "parameters": []
+    },
+    {
+     "name": "toString",
+     "returns": "string",
+     "description": "Returns the string representation of the value of bool.",
+     "parameters": []
+    },
+    {
+     "name": "valueOf",
+     "returns": "boolean",
+     "description": "Returns the primitive value of bool.",
+     "parameters": []
+    }
+   ]
+  },
+  {
+   "name": "Date",
+   "page": "Date.html",
+   "kind": "Object",
+   "description": "A date/time object.",
+   "properties": [],
+   "events": [],
+   "methods": [
+    {
+     "name": "Date",
+     "returns": "Date",
+     "description": "Returns a new Date object holding the current date and time.",
+     "parameters": [
+      {
+       "name": "year",
+       "type": "number",
+       "description": "The year expressed in four digits."
+      },
+      {
+       "name": "month",
+       "type": "number",
+       "description": "An integer value from 0 (Jan) to 11 (Dec).",
+       "range": {
+        "min": "0",
+        "max": "11"
+       },
+       "optional": true
+      },
+      {
+       "name": "day",
+       "type": "number",
+       "description": "An integer value from 1 to 31, If this argument is not supplied, its value is set to 0.",
+       "range": {
+        "min": "1",
+        "max": "31"
+       },
+       "optional": true
+      },
+      {
+       "name": "hours",
+       "type": "number",
+       "description": "An integer value from 0 (midnight) to 23 (11 PM). If this argument is not supplied, its value is set to 0.",
+       "range": {
+        "min": "0",
+        "max": "23"
+       },
+       "optional": true
+      },
+      {
+       "name": "min",
+       "type": "number",
+       "description": "An integer value from 0 to 59. If this argument is not supplied, its value is set to 0.",
+       "range": {
+        "min": "0",
+        "max": "59"
+       },
+       "optional": true
+      },
+      {
+       "name": "sec",
+       "type": "number",
+       "description": "An Integer value from 0 to 59. If this argument is not supplied, its value is set to 0.",
+       "range": {
+        "min": "0",
+        "max": "59"
+       },
+       "optional": true
+      },
+      {
+       "name": "ms",
+       "type": "number",
+       "description": "An integer value from 0 to 999. If this argument is not supplied, its value is set to 0.",
+       "range": {
+        "min": "0",
+        "max": "999"
+       },
+       "optional": true
+      }
+     ]
+    },
+    {
+     "name": "UTC",
+     "returns": "Date",
+     "static": true,
+     "description": "Returns the number of milliseconds between midnight January 1, 1970, UTC, and the specified time.",
+     "parameters": [
+      {
+       "name": "year",
+       "type": "number",
+       "description": "The year expressed in four digits, for example, 2001."
+      },
+      {
+       "name": "month",
+       "type": "number",
+       "description": "An integer value from 0 (Jan) to 11 (Dec).",
+       "range": {
+        "min": "0",
+        "max": "11"
+       },
+       "optional": true
+      },
+      {
+       "name": "day",
+       "type": "number",
+       "description": "An integer value from 1 to 31, If this argument is not supplied, its value is set to 0.",
+       "range": {
+        "min": "1",
+        "max": "31"
+       },
+       "optional": true
+      },
+      {
+       "name": "hours",
+       "type": "number",
+       "description": "An integer value from 0 (midnight) to 23 (11 PM). If this argument is not supplied, its value is set to 0.",
+       "range": {
+        "min": "0",
+        "max": "23"
+       },
+       "optional": true
+      },
+      {
+       "name": "min",
+       "type": "number",
+       "description": "An integer value from 0 to 59. If this argument is not supplied, its value is set to 0.",
+       "range": {
+        "min": "0",
+        "max": "59"
+       },
+       "optional": true
+      },
+      {
+       "name": "sec",
+       "type": "number",
+       "description": "An Integer value from 0 to 59. If this argument is not supplied, its value is set to 0.",
+       "range": {
+        "min": "0",
+        "max": "59"
+       },
+       "optional": true
+      },
+      {
+       "name": "ms",
+       "type": "number",
+       "description": "An integer value from 0 to 999. If this argument is not supplied, its value is set to 0.",
+       "range": {
+        "min": "0",
+        "max": "999"
+       },
+       "optional": true
+      }
+     ]
+    },
+    {
+     "name": "getDate",
+     "returns": "number",
+     "description": "Returns the day of the month of the specified Date object in local time.",
+     "parameters": []
+    },
+    {
+     "name": "getDay",
+     "returns": "number",
+     "description": "Returns the day of the week for the specified Date object in local time.",
+     "parameters": []
+    },
+    {
+     "name": "getFullYear",
+     "returns": "number",
+     "description": "Returns the four digit year of the specified Date object in local time.",
+     "parameters": []
+    },
+    {
+     "name": "getHours",
+     "returns": "number",
+     "description": "Returns the hour of the specified Date object in local time.",
+     "parameters": []
+    },
+    {
+     "name": "getMilliseconds",
+     "returns": "number",
+     "description": "Returns the milliseconds of the specified Date object in local time.",
+     "parameters": []
+    },
+    {
+     "name": "getMinutes",
+     "returns": "number",
+     "description": "Returns the minutes of the specified Date object in local time.",
+     "parameters": []
+    },
+    {
+     "name": "getMonth",
+     "returns": "number",
+     "description": "Returns the month of the specified Date object in local time.",
+     "parameters": []
+    },
+    {
+     "name": "getSeconds",
+     "returns": "number",
+     "description": "Returns the seconds of the specified Date object in local time.",
+     "parameters": []
+    },
+    {
+     "name": "getTime",
+     "returns": "number",
+     "description": "Returns the number of milliseconds since midnight January 1,1970 UTC for the specified Date object.",
+     "parameters": []
+    },
+    {
+     "name": "getTimezoneOffset",
+     "returns": "number",
+     "description": "Returns the difference in minutes between the computer's local time and UTC.",
+     "parameters": []
+    },
+    {
+     "name": "getUTCDate",
+     "returns": "number",
+     "description": "Returns the day of the month of the specified Date object according to UTC.",
+     "parameters": []
+    },
+    {
+     "name": "getUTCDay",
+     "returns": "number",
+     "description": "Returns the day of the week for the specified Date object according to UTC.",
+     "parameters": []
+    },
+    {
+     "name": "getUTCFullYear",
+     "returns": "number",
+     "description": "Returns the four digit year of the specified Date object according to UTC.",
+     "parameters": []
+    },
+    {
+     "name": "getUTCHours",
+     "returns": "number",
+     "description": "Returns the hour of the specified Date object according to UTC.",
+     "parameters": []
+    },
+    {
+     "name": "getUTCMilliseconds",
+     "returns": "number",
+     "description": "Returns the milliseconds of the specified Date object according to UTC.",
+     "parameters": []
+    },
+    {
+     "name": "getUTCMinutes",
+     "returns": "number",
+     "description": "Returns the minutes of the specified Date object according to UTC.",
+     "parameters": []
+    },
+    {
+     "name": "getUTCMonth",
+     "returns": "number",
+     "description": "Returns the month of the specified Date object according to UTC.",
+     "parameters": []
+    },
+    {
+     "name": "getUTCSeconds",
+     "returns": "number",
+     "description": "Returns the seconds of the specified Date object according to UTC.",
+     "parameters": []
+    },
+    {
+     "name": "getYear",
+     "returns": "number",
+     "description": "Returns the year of the specified Date object, as a difference from 1900, in local time.",
+     "parameters": []
+    },
+    {
+     "name": "parse",
+     "returns": "Date",
+     "static": true,
+     "description": "Parses a string, returning a new Date object. The string should be similar to the string returned bt toString().",
+     "parameters": [
+      {
+       "name": "text",
+       "type": "string",
+       "description": "The string to parse."
+      }
+     ]
+    },
+    {
+     "name": "setDate",
+     "returns": "number",
+     "description": "Sets the day of the month of a specified Date object according to local time.",
+     "parameters": [
+      {
+       "name": "date",
+       "type": "number",
+       "description": "An integer from 1 to 31 indicating the day of the month.",
+       "range": {
+        "min": "1",
+        "max": "31"
+       }
+      }
+     ]
+    },
+    {
+     "name": "setFullYear",
+     "returns": "number",
+     "description": "Sets the year of a specified Date object according to local time.",
+     "parameters": [
+      {
+       "name": "year",
+       "type": "number",
+       "description": "A four-digit integer value indicating the year to set."
+      }
+     ]
+    },
+    {
+     "name": "setHours",
+     "returns": "number",
+     "description": "Sets the hours of a specified Date object according to local time.",
+     "parameters": [
+      {
+       "name": "hour",
+       "type": "number",
+       "description": "An integer value from 0 (midnight) to 23 (11 PM).",
+       "range": {
+        "min": "0",
+        "max": "23"
+       }
+      }
+     ]
+    },
+    {
+     "name": "setMilliseconds",
+     "returns": "number",
+     "description": "Sets the milliseconds of a specified Date object according to local time.",
+     "parameters": [
+      {
+       "name": "ms",
+       "type": "number",
+       "description": "An integer value from 0 to 999.",
+       "range": {
+        "min": "0",
+        "max": "999"
+       }
+      }
+     ]
+    },
+    {
+     "name": "setMinutes",
+     "returns": "number",
+     "description": "Sets the minutes of a specified Date object according to local time.",
+     "parameters": [
+      {
+       "name": "minutes",
+       "type": "number",
+       "description": "An integer value from 0 to 59.",
+       "range": {
+        "min": "0",
+        "max": "59"
+       }
+      }
+     ]
+    },
+    {
+     "name": "setMonth",
+     "returns": "number",
+     "description": "Sets the month of a specified Date object according to local time.",
+     "parameters": [
+      {
+       "name": "month",
+       "type": "number",
+       "description": "An integer value from 0 (Jan) to 11 (Dec).",
+       "range": {
+        "min": "0",
+        "max": "11"
+       }
+      }
+     ]
+    },
+    {
+     "name": "setSeconds",
+     "returns": "number",
+     "description": "Sets the seconds of a specified Date object according to local time.",
+     "parameters": [
+      {
+       "name": "seconds",
+       "type": "number",
+       "description": "An integer value from 0 to 59.",
+       "range": {
+        "min": "0",
+        "max": "59"
+       }
+      }
+     ]
+    },
+    {
+     "name": "setTime",
+     "returns": "number",
+     "description": "Sets the date of a specified Date object in milliseconds since midnight, January 1, 1970.",
+     "parameters": [
+      {
+       "name": "ms",
+       "type": "number",
+       "description": "An integer indicating the number of milliseconds between the date set and midnight, January 1, 1970."
+      }
+     ]
+    },
+    {
+     "name": "setUTCDate",
+     "returns": "number",
+     "description": "Sets the date of a specified Date object according to universal time.",
+     "parameters": [
+      {
+       "name": "date",
+       "type": "number",
+       "description": "An integer from 1 to 31 indicating the day of the month.",
+       "range": {
+        "min": "1",
+        "max": "31"
+       }
+      }
+     ]
+    },
+    {
+     "name": "setUTCFullYear",
+     "returns": "number",
+     "description": "Sets the year of a specified Date object according to UTC, can also set the month and date.",
+     "parameters": [
+      {
+       "name": "year",
+       "type": "number",
+       "description": "The year expressed in four digits."
+      }
+     ]
+    },
+    {
+     "name": "setUTCHours",
+     "returns": "number",
+     "description": "Sets the hours of a specified Date object according to UTC.",
+     "parameters": [
+      {
+       "name": "hours",
+       "type": "number",
+       "description": "An integer value from 0 (midnight) to 23 (11 PM) indicating the hour to be set.",
+       "range": {
+        "min": "0",
+        "max": "23"
+       }
+      }
+     ]
+    },
+    {
+     "name": "setUTCMilliseconds",
+     "returns": "number",
+     "description": "Sets the milliseconds of a specified Date object according to UTC.",
+     "parameters": [
+      {
+       "name": "ms",
+       "type": "number",
+       "description": "An integer value in the range of 0 to 999 indicating the number of milliseconds to set.",
+       "range": {
+        "min": "0",
+        "max": "999"
+       }
+      }
+     ]
+    },
+    {
+     "name": "setUTCMinutes",
+     "returns": "number",
+     "description": "Sets the minutes of a specified Date object according to UTC.",
+     "parameters": [
+      {
+       "name": "min",
+       "type": "number",
+       "description": "An integer value in the range 0 to 59 indicating the number of minutes to be set.",
+       "range": {
+        "min": "0",
+        "max": "59"
+       }
+      }
+     ]
+    },
+    {
+     "name": "setUTCMonth",
+     "returns": "number",
+     "description": "Sets the month of a specified Date object according to UTC.",
+     "parameters": [
+      {
+       "name": "month",
+       "type": "number",
+       "description": "An integer value in the range 0 (Jan.) to 11 (Dec.) indicating the month to set.",
+       "range": {
+        "min": "0",
+        "max": "11"
+       }
+      }
+     ]
+    },
+    {
+     "name": "setUTCSeconds",
+     "returns": "number",
+     "description": "Sets the seconds of a specified Date object according to UTC.",
+     "parameters": [
+      {
+       "name": "sec",
+       "type": "number",
+       "description": "An integer value in the range 0 to 59 indicating the number of seconds to set.",
+       "range": {
+        "min": "0",
+        "max": "59"
+       }
+      }
+     ]
+    },
+    {
+     "name": "setYear",
+     "returns": "number",
+     "description": "Sets the year of a specified Date object according to local time, as a difference between the current year and 1900.",
+     "parameters": [
+      {
+       "name": "year",
+       "type": "number",
+       "description": "An integer value indicating the year to set."
+      }
+     ]
+    },
+    {
+     "name": "toDateString",
+     "returns": "string",
+     "description": "Returns the date as a string.",
+     "parameters": []
+    },
+    {
+     "name": "toGMTString",
+     "returns": "string",
+     "description": "Returns the date and time adjusted to GMT (UTC) as a string.",
+     "parameters": []
+    },
+    {
+     "name": "toLocaleDateString",
+     "returns": "string",
+     "description": "Returns the date as a localized string.",
+     "parameters": []
+    },
+    {
+     "name": "toLocaleString",
+     "returns": "string",
+     "description": "Returns a string value representing the date and time stored in the Date object in human readable format (localized).",
+     "parameters": []
+    },
+    {
+     "name": "toLocaleTimeString",
+     "returns": "string",
+     "description": "Returns the time as a localized string.",
+     "parameters": []
+    },
+    {
+     "name": "toSource",
+     "returns": "string",
+     "description": "Creates a string representation of this object that can be fed back to eval() to re-create an object. Works only with built-in classes.",
+     "parameters": []
+    },
+    {
+     "name": "toString",
+     "returns": "string",
+     "description": "Returns a string value representing the date and time stored in the Date object in human readable format.",
+     "parameters": []
+    },
+    {
+     "name": "toTimeString",
+     "returns": "string",
+     "description": "Returns the time as a string.",
+     "parameters": []
+    },
+    {
+     "name": "toUTCString",
+     "returns": "string",
+     "description": "Returns the date and time adjusted to UTC as a string.",
+     "parameters": []
+    },
+    {
+     "name": "valueOf",
+     "returns": "number",
+     "description": "The valueOf() method returns the number of milliseconds that have passed since midnight, Returns an integer.",
+     "parameters": []
+    }
+   ]
+  },
+  {
+   "name": "Error",
+   "page": "Error.html",
+   "kind": "Object",
+   "description": "Wraps a runtime error.",
+   "properties": [
+    {
+     "name": "description",
+     "type": "string",
+     "description": "The error message.",
+     "access": "read/write"
+    }
+   ],
+   "events": [],
+   "methods": [
+    {
+     "name": "Error",
+     "returns": "Error",
+     "description": "Creates a new Error object.",
+     "parameters": [
+      {
+       "name": "msg",
+       "type": "string",
+       "description": "The error message."
+      },
+      {
+       "name": "file",
+       "type": "string",
+       "description": "The name of the file.",
+       "optional": true
+      },
+      {
+       "name": "line",
+       "type": "number",
+       "description": "The line number.",
+       "optional": true
+      }
+     ]
+    },
+    {
+     "name": "toSource",
+     "returns": "string",
+     "description": "Creates a string representation of this object that can be fed back to eval() to re-create an object. Works only with built-in classes.",
+     "parameters": []
+    },
+    {
+     "name": "toString",
+     "returns": "string",
+     "description": "Convert this object to a string.",
+     "parameters": []
+    }
+   ]
+  },
+  {
+   "name": "File",
+   "page": "File.html",
+   "kind": "Object",
+   "description": "Represents a file in the local file system in a platform-independent manner.",
+   "properties": [
+    {
+     "name": "absoluteURI",
+     "type": "string",
+     "description": "The full path name for the referenced file in URI notation.",
+     "access": "readonly"
+    },
+    {
+     "name": "alias",
+     "type": "boolean",
+     "description": "If true, the object refers to a file system alias or shortcut.",
+     "access": "readonly"
+    },
+    {
+     "name": "created",
+     "type": "Date",
+     "description": "The creation date of the referenced file, or null if the object does not refer to a file on disk.",
+     "access": "readonly"
+    },
+    {
+     "name": "creator",
+     "type": "string",
+     "description": "In Mac OS, the file creator as a four-character string. In Windows or UNIX, value is \"????\".",
+     "access": "readonly"
+    },
+    {
+     "name": "displayName",
+     "type": "string",
+     "description": "The localized name of the referenced file, without the path specification.",
+     "access": "readonly"
+    },
+    {
+     "name": "encoding",
+     "type": "string",
+     "description": "Gets or sets the encoding for subsequent read/write operations.",
+     "access": "read/write"
+    },
+    {
+     "name": "eof",
+     "type": "boolean",
+     "description": "When true, a read attempt caused the current position to be at the end of the file, or the file is not open.",
+     "access": "readonly"
+    },
+    {
+     "name": "error",
+     "type": "string",
+     "description": "A string containing a message describing the most recent file system error.",
+     "access": "read/write"
+    },
+    {
+     "name": "exists",
+     "type": "boolean",
+     "description": "If true, this object refers to a file or file-system alias that actually exists in the file system.",
+     "access": "readonly"
+    },
+    {
+     "name": "fs",
+     "type": "string",
+     "description": "The name of the file system.",
+     "access": "readonly",
+     "static": true
+    },
+    {
+     "name": "fsName",
+     "type": "string",
+     "description": "The platform-specific full path name for the referenced file.",
+     "access": "readonly"
+    },
+    {
+     "name": "fullName",
+     "type": "string",
+     "description": "The full path name for the referenced file in URI notation.",
+     "access": "readonly"
+    },
+    {
+     "name": "hidden",
+     "type": "boolean",
+     "description": "When true, the file is not shown in the platform-specific file browser.",
+     "access": "read/write"
+    },
+    {
+     "name": "length",
+     "type": "number",
+     "description": "The size of the file in bytes.",
+     "access": "read/write"
+    },
+    {
+     "name": "lineFeed",
+     "type": "string",
+     "description": "How line feed characters are written in the file system.",
+     "access": "read/write"
+    },
+    {
+     "name": "modified",
+     "type": "Date",
+     "description": "The date of the referenced file's last modification, or null if the object does not refer to a file on the disk.",
+     "access": "readonly"
+    },
+    {
+     "name": "name",
+     "type": "string",
+     "description": "The file name portion of the absolute URI for the referenced file, without the path specification.",
+     "access": "readonly"
+    },
+    {
+     "name": "parent",
+     "type": "Folder",
+     "description": "The Folder object for the folder that contains this file.",
+     "access": "readonly"
+    },
+    {
+     "name": "path",
+     "type": "string",
+     "description": "The path portion of the absolute URI for the referenced file, without the file name.",
+     "access": "readonly"
+    },
+    {
+     "name": "readonly",
+     "type": "boolean",
+     "description": "When true, prevents the file from being altered or deleted.",
+     "access": "read/write"
+    },
+    {
+     "name": "relativeURI",
+     "type": "string",
+     "description": "The path name for the object in URI notation, relative to the current folder.",
+     "access": "readonly"
+    },
+    {
+     "name": "type",
+     "type": "string",
+     "description": "The file type as a four-character string.",
+     "access": "readonly"
+    }
+   ],
+   "events": [],
+   "methods": [
+    {
+     "name": "File",
+     "returns": "File",
+     "description": "Creates and returns a new File object referring to a given file system location.",
+     "parameters": [
+      {
+       "name": "path",
+       "type": "string",
+       "description": "The full or partial path name of the file, in platform-specific or URI format.",
+       "optional": true
+      }
+     ]
+    },
+    {
+     "name": "changePath",
+     "returns": "boolean",
+     "description": "Changes the path specification of the referenced file.",
+     "parameters": [
+      {
+       "name": "path",
+       "type": "string",
+       "description": "A string containing the new path, absolute or relative to the current folder."
+      }
+     ]
+    },
+    {
+     "name": "close",
+     "returns": "boolean",
+     "description": "Closes this open file.",
+     "parameters": []
+    },
+    {
+     "name": "copy",
+     "returns": "boolean",
+     "description": "Copies this object’s referenced file to the specified target location.",
+     "parameters": [
+      {
+       "name": "target",
+       "type": "string | File",
+       "description": "A string with the URI path to the target location, or a File object that references the target location."
+      }
+     ]
+    },
+    {
+     "name": "createAlias",
+     "returns": "void",
+     "description": "Makes this file a file-system alias or shortcut to the specified file.",
+     "parameters": [
+      {
+       "name": "path",
+       "type": "string",
+       "description": "A string containing the path of the target file."
+      }
+     ]
+    },
+    {
+     "name": "decode",
+     "returns": "string",
+     "static": true,
+     "description": "Decodes a UTF-8 encoded string as required by RFC 2396, and returns the decoded string.",
+     "parameters": [
+      {
+       "name": "uri",
+       "type": "string",
+       "description": "The UTF-8 encoded string to decode."
+      }
+     ]
+    },
+    {
+     "name": "encode",
+     "returns": "string",
+     "static": true,
+     "description": "Encodes a string as required by RFC 2396, and returns the encoded string.",
+     "parameters": [
+      {
+       "name": "name",
+       "type": "string",
+       "description": "The string to encode."
+      }
+     ]
+    },
+    {
+     "name": "execute",
+     "returns": "boolean",
+     "description": "Executes or opens this file using the appropriate application, as if it had been double-clicked in a file browser.",
+     "parameters": []
+    },
+    {
+     "name": "getRelativeURI",
+     "returns": "string",
+     "description": "Retrieves and returns the path for this file, relative to the specified base path, in URI notation.",
+     "parameters": [
+      {
+       "name": "basePath",
+       "type": "string",
+       "description": "A base path in URI notation."
+      }
+     ]
+    },
+    {
+     "name": "isEncodingAvailable",
+     "returns": "boolean",
+     "static": true,
+     "description": "Reports whether a given encoding is available.",
+     "parameters": [
+      {
+       "name": "name",
+       "type": "string",
+       "description": "The encoding name."
+      }
+     ]
+    },
+    {
+     "name": "open",
+     "returns": "boolean",
+     "description": "Opens the referenced file for subsequent read/write operations. The method resolves any aliases to find the file.",
+     "parameters": [
+      {
+       "name": "mode",
+       "type": "string",
+       "description": "The read-write mode, a single-character string."
+      },
+      {
+       "name": "type",
+       "type": "string",
+       "description": "In Mac OS, the type of a newly created file, a 4-character string. Ignored in Windows and UNIX.",
+       "optional": true
+      },
+      {
+       "name": "creator",
+       "type": "string",
+       "description": "In Mac OS, the creator of a newly created file, a 4-character string. Ignored in Windows and UNIX.",
+       "optional": true
+      }
+     ]
+    },
+    {
+     "name": "openDialog",
+     "returns": "File",
+     "static": true,
+     "description": "Opens a dialog so the user can select one or more files to open.",
+     "parameters": [
+      {
+       "name": "prompt",
+       "type": "string",
+       "description": "The prompt text, displayed if the dialog allows a prompt."
+      },
+      {
+       "name": "filter",
+       "type": "any",
+       "description": "A filter that limits the types of files displayed in the dialog.",
+       "optional": true
+      },
+      {
+       "name": "multiSelect",
+       "type": "boolean",
+       "description": "When true, the user can select multiple files and the return value is an array.",
+       "optional": true
+      }
+     ]
+    },
+    {
+     "name": "openDlg",
+     "returns": "File",
+     "description": "Opens the built-in platform-specific file-browsing dialog, in which the user can select an existing file or files, and creates new File objects to represent the selected files.",
+     "parameters": [
+      {
+       "name": "prompt",
+       "type": "string",
+       "description": "A string containing the prompt text, if the dialog allows a prompt."
+      },
+      {
+       "name": "filter",
+       "type": "any",
+       "description": "A filter that limits the types of files displayed in the dialog.",
+       "optional": true
+      },
+      {
+       "name": "multiSelect",
+       "type": "boolean",
+       "description": "When true, the user can select multiple files and the return value is an array.",
+       "optional": true
+      }
+     ]
+    },
+    {
+     "name": "read",
+     "returns": "string",
+     "description": "Reads the contents of the file, starting at the current position.",
+     "parameters": [
+      {
+       "name": "chars",
+       "type": "number",
+       "description": "An integer specifying the number of characters to read.",
+       "optional": true
+      }
+     ]
+    },
+    {
+     "name": "readch",
+     "returns": "string",
+     "description": "Reads a single text character from the file at the current position.",
+     "parameters": []
+    },
+    {
+     "name": "readln",
+     "returns": "string",
+     "description": "Reads a single line of text from the file at the current position.",
+     "parameters": []
+    },
+    {
+     "name": "remove",
+     "returns": "boolean",
+     "description": "Deletes the file associated with this object from disk immediately, without moving it to the system trash.",
+     "parameters": []
+    },
+    {
+     "name": "rename",
+     "returns": "boolean",
+     "description": "Renames the associated file.",
+     "parameters": [
+      {
+       "name": "newName",
+       "type": "string",
+       "description": "The new file name, with no path information."
+      }
+     ]
+    },
+    {
+     "name": "resolve",
+     "returns": "File",
+     "description": "Attempts to resolve the file-system alias or shortcut that this object refers to.",
+     "parameters": []
+    },
+    {
+     "name": "saveDialog",
+     "returns": "File",
+     "static": true,
+     "description": "Opens a dialog so the user can select a file name to save to.",
+     "parameters": [
+      {
+       "name": "prompt",
+       "type": "string",
+       "description": "The prompt text, displayed if the dialog allows a prompt."
+      },
+      {
+       "name": "filter",
+       "type": "any",
+       "description": "In Windows only, a filter that limits the types of files displayed in the dialog.",
+       "optional": true
+      }
+     ]
+    },
+    {
+     "name": "saveDlg",
+     "returns": "File",
+     "description": "Opens the built-in platform-specific file-browsing dialog, in which the user can select an existing file location to which to save information, and creates a new File object to represent the selected file.",
+     "parameters": [
+      {
+       "name": "prompt",
+       "type": "string",
+       "description": "A string containing the prompt text, if the dialog allows a prompt."
+      },
+      {
+       "name": "filter",
+       "type": "any",
+       "description": "In Windows only, a filter that limits the types of files displayed in the dialog.",
+       "optional": true
+      }
+     ]
+    },
+    {
+     "name": "seek",
+     "returns": "boolean",
+     "description": "Seeks to a given position in the file.",
+     "parameters": [
+      {
+       "name": "pos",
+       "type": "number",
+       "description": "The new current position in the file as an offset in bytes from the start, current position, or end, depending on the mode."
+      },
+      {
+       "name": "mode",
+       "type": "number",
+       "description": "The seek mode.",
+       "range": {
+        "min": "0",
+        "max": "2"
+       },
+       "optional": true
+      }
+     ]
+    },
+    {
+     "name": "tell",
+     "returns": "number",
+     "description": "Retrieves the current position as a byte offset from the start of the file.",
+     "parameters": []
+    },
+    {
+     "name": "toSource",
+     "returns": "string",
+     "description": "Creates and returns a serialized string representation of this object.",
+     "parameters": []
+    },
+    {
+     "name": "toString",
+     "returns": "string",
+     "description": "Converts this object to a string.",
+     "parameters": []
+    },
+    {
+     "name": "write",
+     "returns": "boolean",
+     "description": "Writes the specified text to the file at the current position.",
+     "parameters": [
+      {
+       "name": "text",
+       "type": "string",
+       "description": "A text string to be written."
+      }
+     ]
+    },
+    {
+     "name": "writeln",
+     "returns": "boolean",
+     "description": "Writes a string to the file at the current position and appends a line-feed sequence.",
+     "parameters": [
+      {
+       "name": "text",
+       "type": "string",
+       "description": "A text string to be written."
+      }
+     ]
+    }
+   ]
+  },
+  {
+   "name": "Folder",
+   "page": "Folder.html",
+   "kind": "Object",
+   "description": "Represents a file-system folder or directory in a platform-independent manner.",
+   "properties": [
+    {
+     "name": "absoluteURI",
+     "type": "string",
+     "description": "The full path name for the referenced folder in URI notation.",
+     "access": "readonly"
+    },
+    {
+     "name": "alias",
+     "type": "boolean",
+     "description": "When true, the object refers to a file system alias or shortcut.",
+     "access": "readonly"
+    },
+    {
+     "name": "appData",
+     "type": "Folder",
+     "description": "The folder containing the application data for all users.",
+     "access": "readonly",
+     "static": true
+    },
+    {
+     "name": "appPackage",
+     "type": "Folder",
+     "description": "In Mac OS, a Folder object for the folder containing the bundle of the running application.",
+     "access": "readonly",
+     "static": true
+    },
+    {
+     "name": "commonFiles",
+     "type": "Folder",
+     "description": "A Folder object for the folder containing common files for all programs installed by the user.",
+     "access": "readonly",
+     "static": true
+    },
+    {
+     "name": "created",
+     "type": "Date",
+     "description": "The creation date of the referenced folder, or null if the object does not refer to a folder on disk.",
+     "access": "readonly"
+    },
+    {
+     "name": "current",
+     "type": "Folder",
+     "description": "A Folder object for the current folder.",
+     "access": "read/write",
+     "static": true
+    },
+    {
+     "name": "desktop",
+     "type": "Folder",
+     "description": "A Folder object for the folder that contains the user’s desktop.",
+     "access": "readonly",
+     "static": true
+    },
+    {
+     "name": "displayName",
+     "type": "string",
+     "description": "The localized name portion of the absolute URI for the referenced folder, without the path specification.",
+     "access": "readonly"
+    },
+    {
+     "name": "error",
+     "type": "string",
+     "description": "A message describing the most recent file system error.",
+     "access": "read/write"
+    },
+    {
+     "name": "exists",
+     "type": "boolean",
+     "description": "When true, this object refers to a folder that currently exists in the file system.",
+     "access": "readonly"
+    },
+    {
+     "name": "fs",
+     "type": "string",
+     "description": "The name of the current file system.",
+     "access": "readonly",
+     "static": true
+    },
+    {
+     "name": "fsName",
+     "type": "string",
+     "description": "The platform-specific name of the referenced folder as a full path name.",
+     "access": "readonly"
+    },
+    {
+     "name": "fullName",
+     "type": "string",
+     "description": "The full path name for the referenced folder in URI notation. .",
+     "access": "readonly"
+    },
+    {
+     "name": "modified",
+     "type": "Date",
+     "description": "The date of the referenced folder's last modification, or null if the object does not refer to a folder on disk.",
+     "access": "readonly"
+    },
+    {
+     "name": "myDocuments",
+     "type": "Folder",
+     "description": "A folder pointing to the user's My Documents folder.",
+     "access": "readonly",
+     "static": true
+    },
+    {
+     "name": "name",
+     "type": "string",
+     "description": "The folder name portion of the absolute URI for the referenced file, without the path specification.",
+     "access": "readonly"
+    },
+    {
+     "name": "parent",
+     "type": "Folder",
+     "description": "TThe Folder object for the folder that contains this folder, or null if this object refers to the root folder of a volume.",
+     "access": "readonly"
+    },
+    {
+     "name": "path",
+     "type": "string",
+     "description": "The path portion of the object absolute URI for the referenced file, without the folder name.",
+     "access": "readonly"
+    },
+    {
+     "name": "relativeURI",
+     "type": "string",
+     "description": "The path name for the referenced folder in URI notation, relative to the current folder.",
+     "access": "readonly"
+    },
+    {
+     "name": "startup",
+     "type": "Folder",
+     "description": "A Folder object for the folder containing the executable image of the running application.",
+     "access": "readonly",
+     "static": true
+    },
+    {
+     "name": "system",
+     "type": "Folder",
+     "description": "A Folder object for the folder containing the operating system files.",
+     "access": "readonly",
+     "static": true
+    },
+    {
+     "name": "temp",
+     "type": "Folder",
+     "description": "A Folder object for the default folder for temporary files.",
+     "access": "readonly",
+     "static": true
+    },
+    {
+     "name": "trash",
+     "type": "Folder",
+     "description": "A Folder object for the folder containing deleted items. On Windows, the trash folder is a virtual folder containing a database; therefore, the property value is null on Windows.",
+     "access": "readonly",
+     "static": true
+    },
+    {
+     "name": "userData",
+     "type": "Folder",
+     "description": "A Folder object for the folder containing the user's application data.",
+     "access": "readonly",
+     "static": true
+    }
+   ],
+   "events": [],
+   "methods": [
+    {
+     "name": "Folder",
+     "returns": "Folder",
+     "description": "Creates and returns a new Folder object referring to a given file-system location.",
+     "parameters": [
+      {
+       "name": "path",
+       "type": "string",
+       "description": "The absolute or relative path to the folder associated with this object, specified in URI format.",
+       "optional": true
+      }
+     ]
+    },
+    {
+     "name": "changePath",
+     "returns": "boolean",
+     "description": "Changes the path specification of the referenced folder.",
+     "parameters": [
+      {
+       "name": "path",
+       "type": "string",
+       "description": "A string containing the new path, absolute or relative to the current folder."
+      }
+     ]
+    },
+    {
+     "name": "create",
+     "returns": "boolean",
+     "description": "Creates a folder at the location given by this object's path property.",
+     "parameters": []
+    },
+    {
+     "name": "decode",
+     "returns": "string",
+     "static": true,
+     "description": "Decodes a UTF-8 encoded string as required by RFC 2396, and returns the decoded string.",
+     "parameters": [
+      {
+       "name": "uri",
+       "type": "string",
+       "description": "The UTF-8 string to decode."
+      }
+     ]
+    },
+    {
+     "name": "encode",
+     "returns": "string",
+     "static": true,
+     "description": "Encodes a string as required by RFC 2396, and returns the encoded string.",
+     "parameters": [
+      {
+       "name": "name",
+       "type": "string",
+       "description": "The string to encode."
+      }
+     ]
+    },
+    {
+     "name": "execute",
+     "returns": "boolean",
+     "description": "Opens this folder in the platform-specific file browser (as if it had been double-clicked in the file browser).",
+     "parameters": []
+    },
+    {
+     "name": "getFiles",
+     "returns": "any[]",
+     "description": "Retrieves the contents of this folder, filtered by the supplied mask.",
+     "parameters": [
+      {
+       "name": "mask",
+       "type": "any",
+       "description": "A search mask for file names, specified as a string or a function."
+      }
+     ]
+    },
+    {
+     "name": "getRelativeURI",
+     "returns": "string",
+     "description": "Retrieves and returns the path for this file, relative to the specified base path, in URI notation.",
+     "parameters": [
+      {
+       "name": "basePath",
+       "type": "string",
+       "description": "A base path in URI notation.",
+       "optional": true
+      }
+     ]
+    },
+    {
+     "name": "isEncodingAvailable",
+     "returns": "boolean",
+     "static": true,
+     "description": "Reports whether a given encoding is available.",
+     "parameters": [
+      {
+       "name": "name",
+       "type": "string",
+       "description": "The encoding name."
+      }
+     ]
+    },
+    {
+     "name": "remove",
+     "returns": "boolean",
+     "description": "Deletes the folder associated with this object from disk immediately, without moving it to the system trash.",
+     "parameters": []
+    },
+    {
+     "name": "rename",
+     "returns": "boolean",
+     "description": "Renames the associated folder.",
+     "parameters": [
+      {
+       "name": "newName",
+       "type": "string",
+       "description": "The new folder name, with no path information."
+      }
+     ]
+    },
+    {
+     "name": "resolve",
+     "returns": "Folder",
+     "description": "Attempts to resolve the file-system alias or shortcut that this object refers to.",
+     "parameters": []
+    },
+    {
+     "name": "selectDialog",
+     "returns": "Folder",
+     "static": true,
+     "description": "Opens the built-in platform-specific file-browsing dialog, and creates a new File or Folder object for the selected file or folder.",
+     "parameters": [
+      {
+       "name": "prompt",
+       "type": "string",
+       "description": "The prompt text, if the dialog allows a prompt."
+      }
+     ]
+    },
+    {
+     "name": "selectDlg",
+     "returns": "Folder",
+     "description": "Opens the built-in platform-specific file-browsing dialog, and creates a new File or Folder object for the selected file or folder.",
+     "parameters": [
+      {
+       "name": "prompt",
+       "type": "string",
+       "description": "The prompt text, if the dialog allows a prompt."
+      }
+     ]
+    },
+    {
+     "name": "toSource",
+     "returns": "string",
+     "description": "Creates and returns a serialized string representation of this object.",
+     "parameters": []
+    },
+    {
+     "name": "toString",
+     "returns": "string",
+     "description": "Converts this object to a string.",
+     "parameters": []
+    }
+   ]
+  },
+  {
+   "name": "Function",
+   "page": "Function.html",
+   "kind": "Object",
+   "description": "Wraps a built-in or JavaScript function.",
+   "properties": [
+    {
+     "name": "arguments",
+     "type": "Object",
+     "description": "The function arguments, packed into an array.",
+     "access": "read/write"
+    },
+    {
+     "name": "arity",
+     "type": "number",
+     "description": "The number of formal arguments.",
+     "access": "readonly"
+    },
+    {
+     "name": "length",
+     "type": "number",
+     "description": "The number of formal arguments.",
+     "access": "readonly"
+    },
+    {
+     "name": "name",
+     "type": "string",
+     "description": "The function name.",
+     "access": "readonly"
+    }
+   ],
+   "events": [],
+   "methods": [
+    {
+     "name": "Function",
+     "returns": "Function",
+     "description": "The Function constructor parses the argument list and creates a Function object.",
+     "parameters": [
+      {
+       "name": "arguments",
+       "type": "string",
+       "description": "The list of formal arguments, separated by commas."
+      },
+      {
+       "name": "body",
+       "type": "string",
+       "description": "The body of the function to create."
+      }
+     ]
+    },
+    {
+     "name": "apply",
+     "returns": "any",
+     "description": "Apply a this object and an argument list to a function.",
+     "parameters": [
+      {
+       "name": "thisObj",
+       "type": "Object",
+       "description": "The object to be used as this."
+      },
+      {
+       "name": "args",
+       "type": "any[]",
+       "description": "An array of arguments."
+      }
+     ]
+    },
+    {
+     "name": "call",
+     "returns": "any",
+     "description": "Apply a this object and arguments to a function.",
+     "parameters": [
+      {
+       "name": "thisObj",
+       "type": "Object",
+       "description": "The object to be used as this."
+      },
+      {
+       "name": "argument",
+       "type": "any",
+       "description": "The first agument to the function. Add as many as needed."
+      }
+     ]
+    },
+    {
+     "name": "toSource",
+     "returns": "string",
+     "description": "Creates a string representation of this object that can be fed back to eval() to re-create an object. Works only with JavaScript functions.",
+     "parameters": []
+    },
+    {
+     "name": "toString",
+     "returns": "string",
+     "description": "Returns the function definition as a string.",
+     "parameters": []
+    }
+   ]
+  },
+  {
+   "name": "Math",
+   "page": "Math.html",
+   "kind": "Object",
+   "description": "A global object containing a set of math functions and constants.",
+   "properties": [
+    {
+     "name": "E",
+     "type": "number",
+     "description": "Euler's constant and the base of natural logarithms.",
+     "access": "readonly",
+     "static": true,
+     "value": "2.7182818284590452354"
+    },
+    {
+     "name": "LN10",
+     "type": "number",
+     "description": "The natural logarithm of 10.",
+     "access": "readonly",
+     "static": true,
+     "value": "2.302585092994046"
+    },
+    {
+     "name": "LN2",
+     "type": "number",
+     "description": "The natural logarithm of 2.",
+     "access": "readonly",
+     "static": true,
+     "value": "0.6931471805599453"
+    },
+    {
+     "name": "LOG10E",
+     "type": "number",
+     "description": "The base 10 logarithm of e.",
+     "access": "readonly",
+     "static": true,
+     "value": "0.4342944819032518"
+    },
+    {
+     "name": "LOG2E",
+     "type": "number",
+     "description": "The base 2 logarithm of e.",
+     "access": "readonly",
+     "static": true,
+     "value": "1.4426950408886934"
+    },
+    {
+     "name": "PI",
+     "type": "number",
+     "description": "The ratio of the circumference of a circle to its diameter.",
+     "access": "readonly",
+     "static": true,
+     "value": "3.14159265358979323846"
+    },
+    {
+     "name": "SQRT1_2",
+     "type": "number",
+     "description": "The reciprocal of the square root of 1/2.",
+     "access": "readonly",
+     "static": true,
+     "value": "0.7071067811865476"
+    },
+    {
+     "name": "SQRT2",
+     "type": "number",
+     "description": "The square root of 2.",
+     "access": "readonly",
+     "static": true,
+     "value": "1.4142135623730951"
+    }
+   ],
+   "events": [],
+   "methods": [
+    {
+     "name": "abs",
+     "returns": "number",
+     "static": true,
+     "description": "Returns the absolute value of a number.",
+     "parameters": [
+      {
+       "name": "x",
+       "type": "number",
+       "description": "A number."
+      }
+     ]
+    },
+    {
+     "name": "acos",
+     "returns": "number",
+     "static": true,
+     "description": "Returns the arc cosine(in radians) of a number.",
+     "parameters": [
+      {
+       "name": "x",
+       "type": "number",
+       "description": "A number."
+      }
+     ]
+    },
+    {
+     "name": "asin",
+     "returns": "number",
+     "static": true,
+     "description": "Returns the arc sin(in radians) of a number.",
+     "parameters": [
+      {
+       "name": "x",
+       "type": "number",
+       "description": "A number."
+      }
+     ]
+    },
+    {
+     "name": "atan",
+     "returns": "number",
+     "static": true,
+     "description": "Returns the arc tangent(in radians) of a number.",
+     "parameters": [
+      {
+       "name": "x",
+       "type": "number",
+       "description": "A number."
+      }
+     ]
+    },
+    {
+     "name": "atan2",
+     "returns": "number",
+     "static": true,
+     "description": "Returns the arc tangent of the quotient of its arguments (y/x).",
+     "parameters": [
+      {
+       "name": "y",
+       "type": "number",
+       "description": "A number."
+      },
+      {
+       "name": "x",
+       "type": "number",
+       "description": "A number."
+      }
+     ]
+    },
+    {
+     "name": "ceil",
+     "returns": "number",
+     "static": true,
+     "description": "Rounds the number up to the nearest integer.",
+     "parameters": [
+      {
+       "name": "x",
+       "type": "number",
+       "description": "A number."
+      }
+     ]
+    },
+    {
+     "name": "cos",
+     "returns": "number",
+     "static": true,
+     "description": "Returns the cosine of an angle provided in radians.",
+     "parameters": [
+      {
+       "name": "x",
+       "type": "number",
+       "description": "An angle, in radians."
+      }
+     ]
+    },
+    {
+     "name": "exp",
+     "returns": "number",
+     "static": true,
+     "description": "Returns Math.E raised to the power of a number.",
+     "parameters": [
+      {
+       "name": "x",
+       "type": "number",
+       "description": "A number."
+      }
+     ]
+    },
+    {
+     "name": "floor",
+     "returns": "number",
+     "static": true,
+     "description": "Rounds a number down to the nearest integer.",
+     "parameters": [
+      {
+       "name": "x",
+       "type": "number",
+       "description": "A number."
+      }
+     ]
+    },
+    {
+     "name": "log",
+     "returns": "number",
+     "static": true,
+     "description": "Returns the natural logarithm of a number.",
+     "parameters": [
+      {
+       "name": "x",
+       "type": "number",
+       "description": "A number."
+      }
+     ]
+    },
+    {
+     "name": "max",
+     "returns": "number",
+     "static": true,
+     "description": "Returns the largest of zero or more numbers.",
+     "parameters": [
+      {
+       "name": "value1, value2, ...",
+       "type": "number",
+       "description": "Numbers."
+      }
+     ]
+    },
+    {
+     "name": "min",
+     "returns": "number",
+     "static": true,
+     "description": "Returns the smallest of zero or more numbers.",
+     "parameters": [
+      {
+       "name": "value1, value2, ...",
+       "type": "number",
+       "description": "Numbers."
+      }
+     ]
+    },
+    {
+     "name": "pow",
+     "returns": "number",
+     "static": true,
+     "description": "Returns x raised to the power of y.",
+     "parameters": [
+      {
+       "name": "x",
+       "type": "number",
+       "description": "Numbers."
+      },
+      {
+       "name": "y",
+       "type": "number",
+       "description": ""
+      }
+     ]
+    },
+    {
+     "name": "random",
+     "returns": "number",
+     "static": true,
+     "description": "Returns a pseudo-random number from 0.0 up to but not including 1.0.",
+     "parameters": []
+    },
+    {
+     "name": "round",
+     "returns": "number",
+     "static": true,
+     "description": "Rounds a number to the nearest integer.",
+     "parameters": [
+      {
+       "name": "x",
+       "type": "number",
+       "description": "A number."
+      }
+     ]
+    },
+    {
+     "name": "sin",
+     "returns": "number",
+     "static": true,
+     "description": "Returns the sine of an angle provided in radians.",
+     "parameters": [
+      {
+       "name": "x",
+       "type": "number",
+       "description": "An angle, in radians."
+      }
+     ]
+    },
+    {
+     "name": "sqrt",
+     "returns": "number",
+     "static": true,
+     "description": "Returns the square root of a number.",
+     "parameters": [
+      {
+       "name": "x",
+       "type": "number",
+       "description": "A number."
+      }
+     ]
+    },
+    {
+     "name": "tan",
+     "returns": "number",
+     "static": true,
+     "description": "Returns the tangent of an angle provided in radians.",
+     "parameters": [
+      {
+       "name": "x",
+       "type": "number",
+       "description": "An angle, in radians."
+      }
+     ]
+    }
+   ]
+  },
+  {
+   "name": "Namespace",
+   "page": "Namespace.html",
+   "kind": "Object",
+   "description": "A XML namespace object.",
+   "properties": [
+    {
+     "name": "prefix",
+     "type": "string",
+     "description": "The named prefix.",
+     "access": "readonly"
+    },
+    {
+     "name": "uri",
+     "type": "string",
+     "description": "The URI.",
+     "access": "readonly"
+    }
+   ],
+   "events": [],
+   "methods": [
+    {
+     "name": "Namespace",
+     "returns": "Namespace",
+     "description": "Creates a Namespace object.",
+     "parameters": [
+      {
+       "name": "prefix",
+       "type": "any",
+       "description": "The URI prefix, specified as an existing Namespace object, QName object, or string."
+      },
+      {
+       "name": "uri",
+       "type": "string",
+       "description": "The URI if the prefix is specified as a string.",
+       "optional": true
+      }
+     ]
+    }
+   ]
+  },
+  {
+   "name": "Number",
+   "page": "Number.html",
+   "kind": "Object",
+   "description": "Wraps a numeric value.",
+   "properties": [
+    {
+     "name": "MAX_VALUE",
+     "type": "number",
+     "description": "A constant representing the largest representable number.",
+     "access": "readonly",
+     "static": true,
+     "value": "1.7976931348623158e+308"
+    },
+    {
+     "name": "MIN_VALUE",
+     "type": "number",
+     "description": "A constant representing the smallest representable number.",
+     "access": "readonly",
+     "static": true,
+     "value": "2.2250738585072014e-308"
+    },
+    {
+     "name": "NEGATIVE_INFINITY",
+     "type": "number",
+     "description": "A constant representing negative infinity.",
+     "access": "readonly",
+     "static": true
+    },
+    {
+     "name": "NaN",
+     "type": "number",
+     "description": "A constant representing the special \"Not a Number\" value.",
+     "access": "readonly",
+     "static": true,
+     "value": "NaN"
+    },
+    {
+     "name": "POSITIVE_INFINITY",
+     "type": "number",
+     "description": "A constant representing positive infinity.",
+     "access": "readonly",
+     "static": true
+    }
+   ],
+   "events": [],
+   "methods": [
+    {
+     "name": "Number",
+     "returns": "number",
+     "description": "Returns a new Number object set to the value of the argument converted to a number.",
+     "parameters": [
+      {
+       "name": "value",
+       "type": "any",
+       "description": "The value of the object being created."
+      }
+     ]
+    },
+    {
+     "name": "toExponential",
+     "returns": "number",
+     "description": "Converts the Number object to a string in scientific notation.",
+     "parameters": [
+      {
+       "name": "decimals",
+       "type": "number",
+       "description": "The number of decimals."
+      }
+     ]
+    },
+    {
+     "name": "toFixed",
+     "returns": "number",
+     "description": "Converts the Number object to a string with fixed decimals.",
+     "parameters": [
+      {
+       "name": "decimals",
+       "type": "number",
+       "description": "The number of decimals."
+      }
+     ]
+    },
+    {
+     "name": "toLocaleString",
+     "returns": "number",
+     "description": "Returns the value of a Number object converted to a string, using localized conventions.",
+     "parameters": []
+    },
+    {
+     "name": "toPrecision",
+     "returns": "number",
+     "description": "Converts the Number object to a string in either scientific or fixed notation, epending on its value.",
+     "parameters": [
+      {
+       "name": "decimals",
+       "type": "number",
+       "description": "The number of decimals."
+      }
+     ]
+    },
+    {
+     "name": "toSource",
+     "returns": "number",
+     "description": "Creates a string representation of this object that can be fed back to eval() to re-create an object. Works only with built-in classes.",
+     "parameters": []
+    },
+    {
+     "name": "toString",
+     "returns": "number",
+     "description": "Returns the value of a Number object converted to a string.",
+     "parameters": [
+      {
+       "name": "radix",
+       "type": "number",
+       "description": "The optional conversion radix.",
+       "optional": true
+      }
+     ]
+    },
+    {
+     "name": "valueOf",
+     "returns": "number",
+     "description": "Returns the value of a Number object as a primitive number.",
+     "parameters": []
+    }
+   ]
+  },
+  {
+   "name": "Object",
+   "page": "Object.html",
+   "kind": "Object",
+   "description": "The base class of all JavaScript objects.",
+   "properties": [
+    {
+     "name": "constructor",
+     "type": "Function",
+     "description": "Points to the constructor function that created this object.",
+     "access": "readonly"
+    },
+    {
+     "name": "prototype",
+     "type": "Object",
+     "description": "Points to the prototype object for this object.",
+     "access": "readonly"
+    },
+    {
+     "name": "reflect",
+     "type": "Reflection",
+     "description": "Retrieves and returns the Reflection object associated with this method or a property.",
+     "access": "readonly"
+    }
+   ],
+   "events": [],
+   "methods": [
+    {
+     "name": "Object",
+     "returns": "Object",
+     "description": "Creates and returns a new object of a given type.",
+     "parameters": [
+      {
+       "name": "what",
+       "type": "any",
+       "description": "The object type."
+      }
+     ]
+    },
+    {
+     "name": "hasOwnProperty",
+     "returns": "boolean",
+     "description": "Reports whether a given property is defined with an instance or within the prototype chain.",
+     "parameters": [
+      {
+       "name": "name",
+       "type": "string",
+       "description": "The name of the property to check."
+      }
+     ]
+    },
+    {
+     "name": "isPrototypeOf",
+     "returns": "boolean",
+     "description": "Checks whether the given object is a prototype of this object.",
+     "parameters": [
+      {
+       "name": "what",
+       "type": "Object",
+       "description": "The object to check."
+      }
+     ]
+    },
+    {
+     "name": "isValid",
+     "returns": "boolean",
+     "static": true,
+     "description": "Reports whether an object is still valid.",
+     "parameters": [
+      {
+       "name": "what",
+       "type": "Object",
+       "description": "The object to check."
+      }
+     ]
+    },
+    {
+     "name": "propertyIsEnumerable",
+     "returns": "boolean",
+     "description": "Reports whether a given property is enumerable.",
+     "parameters": [
+      {
+       "name": "name",
+       "type": "string",
+       "description": "The name of the property to check."
+      }
+     ]
+    },
+    {
+     "name": "toLocaleString",
+     "returns": "string",
+     "description": "Creates and returns a string representing this object, localized for the current locale. See toString().",
+     "parameters": []
+    },
+    {
+     "name": "toSource",
+     "returns": "string",
+     "description": "Creates and returns a string representation of this object.",
+     "parameters": []
+    },
+    {
+     "name": "toString",
+     "returns": "string",
+     "description": "Creates and returns a string representing this object.",
+     "parameters": []
+    },
+    {
+     "name": "unwatch",
+     "returns": "void",
+     "description": "Removes the watch function of a property.",
+     "parameters": [
+      {
+       "name": "name",
+       "type": "string",
+       "description": "The name of the property to unwatch."
+      }
+     ]
+    },
+    {
+     "name": "valueOf",
+     "returns": "Object",
+     "description": "Retrieves and returns the primitive value of this object.",
+     "parameters": []
+    },
+    {
+     "name": "watch",
+     "returns": "void",
+     "description": "Adds a watch function to a property, which is called when the value changes.",
+     "parameters": [
+      {
+       "name": "name",
+       "type": "string",
+       "description": "The name of the property to watch."
+      },
+      {
+       "name": "func",
+       "type": "Function",
+       "description": "The function to be called when the value of this property changes."
+      }
+     ]
+    }
+   ]
+  },
+  {
+   "name": "QName",
+   "page": "QName.html",
+   "kind": "Object",
+   "description": "A qualified XML name, containing the URI and the local name.",
+   "properties": [
+    {
+     "name": "localName",
+     "type": "string",
+     "description": "The local name part of the qualified name.",
+     "access": "readonly"
+    },
+    {
+     "name": "uri",
+     "type": "string",
+     "description": "The URI part of the qualified name.",
+     "access": "readonly"
+    }
+   ],
+   "events": [],
+   "methods": [
+    {
+     "name": "QName",
+     "returns": "QName",
+     "description": "Creates a QName object.",
+     "parameters": [
+      {
+       "name": "uri",
+       "type": "any",
+       "description": "The URI, specified as a Namespace object, an existing QName object, or string."
+      },
+      {
+       "name": "name",
+       "type": "string",
+       "description": "The local name. Used only if URI is given as a string.",
+       "optional": true
+      }
+     ]
+    }
+   ]
+  },
+  {
+   "name": "Reflection",
+   "page": "Reflection.html",
+   "kind": "Object",
+   "description": "Provides information about a class.",
+   "properties": [
+    {
+     "name": "description",
+     "type": "string",
+     "description": "The long description text.",
+     "access": "readonly"
+    },
+    {
+     "name": "help",
+     "type": "string",
+     "description": "The short description text.",
+     "access": "readonly"
+    },
+    {
+     "name": "methods",
+     "type": "ReflectionInfo[]",
+     "description": "An array of method descriptions.",
+     "access": "readonly"
+    },
+    {
+     "name": "name",
+     "type": "string",
+     "description": "The class name.",
+     "access": "readonly"
+    },
+    {
+     "name": "properties",
+     "type": "ReflectionInfo[]",
+     "description": "An array of property descriptions.",
+     "access": "readonly"
+    },
+    {
+     "name": "sampleCode",
+     "type": "string",
+     "description": "Sample code, if present.",
+     "access": "readonly"
+    },
+    {
+     "name": "sampleFile",
+     "type": "File",
+     "description": "A file containing sample code. May be null.",
+     "access": "readonly"
+    },
+    {
+     "name": "staticMethods",
+     "type": "ReflectionInfo[]",
+     "description": "An array of class method descriptions.",
+     "access": "readonly"
+    },
+    {
+     "name": "staticProperties",
+     "type": "ReflectionInfo[]",
+     "description": "An array of class property descriptions.",
+     "access": "readonly"
+    }
+   ],
+   "events": [],
+   "methods": [
+    {
+     "name": "find",
+     "returns": "ReflectionInfo",
+     "description": "Finds an element description by name.",
+     "parameters": [
+      {
+       "name": "name",
+       "type": "string",
+       "description": "The name of the element to find."
+      }
+     ]
+    },
+    {
+     "name": "toXML",
+     "returns": "XML",
+     "description": "Returns this class information as XML in OMV format.",
+     "parameters": []
+    }
+   ]
+  },
+  {
+   "name": "ReflectionInfo",
+   "page": "ReflectionInfo.html",
+   "kind": "Object",
+   "description": "Provides information about a method, a property or a method parameters.",
+   "properties": [
+    {
+     "name": "arguments",
+     "type": "ReflectionInfo[]",
+     "description": "The description of method or function arguments.",
+     "access": "readonly"
+    },
+    {
+     "name": "dataType",
+     "type": "string",
+     "description": "The data type.",
+     "access": "readonly"
+    },
+    {
+     "name": "defaultValue",
+     "type": "any",
+     "description": "The default value.",
+     "access": "readonly"
+    },
+    {
+     "name": "description",
+     "type": "string",
+     "description": "The long description text.",
+     "access": "readonly"
+    },
+    {
+     "name": "help",
+     "type": "string",
+     "description": "The short description text.",
+     "access": "readonly"
+    },
+    {
+     "name": "isCollection",
+     "type": "boolean",
+     "description": "Contains true if the class describes a collection class.",
+     "access": "readonly"
+    },
+    {
+     "name": "max",
+     "type": "number",
+     "description": "The maximum value.",
+     "access": "readonly"
+    },
+    {
+     "name": "min",
+     "type": "number",
+     "description": "The minimum value.",
+     "access": "readonly"
+    },
+    {
+     "name": "name",
+     "type": "string",
+     "description": "The element name.",
+     "access": "readonly"
+    },
+    {
+     "name": "parent",
+     "type": "Reflection",
+     "description": "The class object that this element belongs to.",
+     "access": "readonly"
+    },
+    {
+     "name": "sampleCode",
+     "type": "string",
+     "description": "Sample code, if present.",
+     "access": "readonly"
+    },
+    {
+     "name": "sampleFile",
+     "type": "File",
+     "description": "A file containing sample code. May be null.",
+     "access": "readonly"
+    },
+    {
+     "name": "type",
+     "type": "string",
+     "description": "The element type.",
+     "access": "readonly"
+    }
+   ],
+   "events": [],
+   "methods": []
+  },
+  {
+   "name": "RegExp",
+   "page": "RegExp.html",
+   "kind": "Object",
+   "description": "Wraps a regular expression.",
+   "properties": [
+    {
+     "name": "$1",
+     "type": "string",
+     "description": "The matched subexpression #1.",
+     "access": "readonly",
+     "static": true
+    },
+    {
+     "name": "$2",
+     "type": "string",
+     "description": "The matched subexpression #2.",
+     "access": "readonly",
+     "static": true
+    },
+    {
+     "name": "$3",
+     "type": "string",
+     "description": "The matched subexpression #3.",
+     "access": "readonly",
+     "static": true
+    },
+    {
+     "name": "$4",
+     "type": "string",
+     "description": "The matched subexpression #4.",
+     "access": "readonly",
+     "static": true
+    },
+    {
+     "name": "$5",
+     "type": "string",
+     "description": "The matched subexpression #5.",
+     "access": "readonly",
+     "static": true
+    },
+    {
+     "name": "$6",
+     "type": "string",
+     "description": "The matched subexpression #6.",
+     "access": "readonly",
+     "static": true
+    },
+    {
+     "name": "$7",
+     "type": "string",
+     "description": "The matched subexpression #7.",
+     "access": "readonly",
+     "static": true
+    },
+    {
+     "name": "$8",
+     "type": "string",
+     "description": "The matched subexpression #8.",
+     "access": "readonly",
+     "static": true
+    },
+    {
+     "name": "$9",
+     "type": "string",
+     "description": "The matched subexpression #9.",
+     "access": "readonly",
+     "static": true
+    },
+    {
+     "name": "global",
+     "type": "boolean",
+     "description": "Indicates whether the match is a global match.",
+     "access": "read/write",
+     "static": true
+    },
+    {
+     "name": "ignoreCase",
+     "type": "boolean",
+     "description": "Indicates whether the match is not case sensitive.",
+     "access": "read/write",
+     "static": true
+    },
+    {
+     "name": "input",
+     "type": "string",
+     "description": "The original input string.",
+     "access": "read/write",
+     "static": true
+    },
+    {
+     "name": "lastMatch",
+     "type": "string",
+     "description": "The last match.",
+     "access": "readonly",
+     "static": true
+    },
+    {
+     "name": "lastParen",
+     "type": "string",
+     "description": "The value of the last matched subexpression.",
+     "access": "readonly",
+     "static": true
+    },
+    {
+     "name": "leftContext",
+     "type": "string",
+     "description": "The string before the match.",
+     "access": "readonly",
+     "static": true
+    },
+    {
+     "name": "multiline",
+     "type": "boolean",
+     "description": "Indicates whether the match matches multiple lines.",
+     "access": "read/write",
+     "static": true
+    },
+    {
+     "name": "rightContext",
+     "type": "string",
+     "description": "The string after the match.",
+     "access": "readonly",
+     "static": true
+    }
+   ],
+   "events": [],
+   "methods": [
+    {
+     "name": "RegExp",
+     "returns": "RegExp",
+     "description": "Creates and returns a new RegExp object set to the value of the argument converted to a regular expression.",
+     "parameters": [
+      {
+       "name": "pattern",
+       "type": "string",
+       "description": "The pattern to convert."
+      },
+      {
+       "name": "flags",
+       "type": "string",
+       "description": "Flags that control how the conversion is performed.",
+       "optional": true
+      }
+     ]
+    },
+    {
+     "name": "compile",
+     "returns": "boolean",
+     "description": "Compiles a string to a regular expression. Returns true if the compilation was successful.",
+     "parameters": [
+      {
+       "name": "pattern",
+       "type": "string",
+       "description": "The pattern to compile."
+      }
+     ]
+    },
+    {
+     "name": "exec",
+     "returns": "any[]",
+     "description": "Execute a regular expression.",
+     "parameters": [
+      {
+       "name": "text",
+       "type": "string",
+       "description": "The string to match."
+      }
+     ]
+    },
+    {
+     "name": "test",
+     "returns": "boolean",
+     "description": "Execute a regular expression, and return true if there is a match.",
+     "parameters": [
+      {
+       "name": "text",
+       "type": "string",
+       "description": "The string to match."
+      }
+     ]
+    },
+    {
+     "name": "toString",
+     "returns": "string",
+     "description": "Converts this RegExp object to a string.",
+     "parameters": []
+    }
+   ]
+  },
+  {
+   "name": "Socket",
+   "page": "Socket.html",
+   "kind": "Object",
+   "description": "Creates a TCP/IP connection, or establishes a TCP/IP server.",
+   "properties": [
+    {
+     "name": "connected",
+     "type": "boolean",
+     "description": "When true, the connection is active.",
+     "access": "readonly"
+    },
+    {
+     "name": "encoding",
+     "type": "string",
+     "description": "Sets or retrieves the name of the encoding used to transmit data.",
+     "access": "read/write"
+    },
+    {
+     "name": "eof",
+     "type": "boolean",
+     "description": "When true, the receive buffer is empty.",
+     "access": "readonly"
+    },
+    {
+     "name": "error",
+     "type": "string",
+     "description": "A message describing the most recent error. Setting this value clears any error message.",
+     "access": "read/write"
+    },
+    {
+     "name": "host",
+     "type": "string",
+     "description": "The name of the remote computer when a connection is established.",
+     "access": "readonly"
+    },
+    {
+     "name": "timeout",
+     "type": "number",
+     "description": "The timeout in seconds to be applied to read or write operations.",
+     "access": "read/write",
+     "value": "10"
+    }
+   ],
+   "events": [],
+   "methods": [
+    {
+     "name": "Socket",
+     "returns": "Socket",
+     "description": "Creates a new Socket object.",
+     "parameters": []
+    },
+    {
+     "name": "close",
+     "returns": "boolean",
+     "description": "Terminates the open connection.",
+     "parameters": []
+    },
+    {
+     "name": "listen",
+     "returns": "boolean",
+     "description": "Instructs the object to start listening for an incoming connection.",
+     "parameters": [
+      {
+       "name": "port",
+       "type": "number",
+       "description": "The TCP/IP port number to listen on.",
+       "range": {
+        "min": "1",
+        "max": "65535"
+       }
+      },
+      {
+       "name": "encoding",
+       "type": "string",
+       "description": "The encoding to be used for the connection",
+       "optional": true
+      }
+     ]
+    },
+    {
+     "name": "open",
+     "returns": "boolean",
+     "description": "Opens the connection for subsequent read/write operations.",
+     "parameters": [
+      {
+       "name": "host",
+       "type": "string",
+       "description": "The server to connect to."
+      },
+      {
+       "name": "encoding",
+       "type": "string",
+       "description": "The encoding to be used for the connection",
+       "optional": true
+      }
+     ]
+    },
+    {
+     "name": "poll",
+     "returns": "Socket",
+     "description": "Checks a listening object for a new incoming connection.",
+     "parameters": []
+    },
+    {
+     "name": "read",
+     "returns": "string",
+     "description": "Reads up to the specified number of characters from the connection. CR characters are ignored unless the encoding is set to \"BINARY\".",
+     "parameters": [
+      {
+       "name": "count",
+       "type": "number",
+       "description": "The number of characters to read.",
+       "optional": true
+      }
+     ]
+    },
+    {
+     "name": "readln",
+     "returns": "string",
+     "description": "Reads one line of text up to the next line feed.",
+     "parameters": []
+    },
+    {
+     "name": "write",
+     "returns": "boolean",
+     "description": "Concatenates all arguments into a single string and writes that string to the connection.",
+     "parameters": [
+      {
+       "name": "text",
+       "type": "string",
+       "description": "Any number of string values. All arguments are concatenated to form the string to be written. CRLF sequences are converted to LFs unless the encoding is set to \"BINARY\"."
+      }
+     ]
+    },
+    {
+     "name": "writeln",
+     "returns": "boolean",
+     "description": "Concatenates all arguments into a single string, appends a LF character, and writes that string to the connection.",
+     "parameters": [
+      {
+       "name": "text",
+       "type": "string",
+       "description": "Any number of string values. All arguments are concatenated to form the string to be written. CRLF sequences are converted to LFs unless the encoding is set to \"BINARY\"."
+      }
+     ]
+    }
+   ]
+  },
+  {
+   "name": "String",
+   "page": "String.html",
+   "kind": "Object",
+   "description": "A character string. Each character is adressable by index.",
+   "properties": [
+    {
+     "name": "length",
+     "type": "number",
+     "description": "The length of the string.",
+     "access": "readonly"
+    }
+   ],
+   "events": [],
+   "methods": [
+    {
+     "name": "String",
+     "returns": "string",
+     "description": "Returns a string representation of the value given as an argument.",
+     "parameters": [
+      {
+       "name": "value",
+       "type": "any",
+       "description": "A number, variable, or object to convert to a string."
+      }
+     ]
+    },
+    {
+     "name": "anchor",
+     "returns": "string",
+     "description": "Returns a string consisting of this string enclosed in a <a> tag.",
+     "parameters": [
+      {
+       "name": "name",
+       "type": "string",
+       "description": "The text to be stored in the anchors' name attribute."
+      }
+     ]
+    },
+    {
+     "name": "big",
+     "returns": "string",
+     "description": "Returns a string consisting of this string enclosed in a <big> tag.",
+     "parameters": []
+    },
+    {
+     "name": "blink",
+     "returns": "string",
+     "description": "Returns a string consisting of this string enclosed in a <blink> tag.",
+     "parameters": []
+    },
+    {
+     "name": "bold",
+     "returns": "string",
+     "description": "Returns a string consisting of this string enclosed in a <b> tag.",
+     "parameters": []
+    },
+    {
+     "name": "charAt",
+     "returns": "string",
+     "description": "Returns the character at the specified index.",
+     "parameters": [
+      {
+       "name": "index",
+       "type": "number",
+       "description": "An integer between 0 and string.length -1, specifying the character to return."
+      }
+     ]
+    },
+    {
+     "name": "charCodeAt",
+     "returns": "number",
+     "description": "Returns the Unicode value of the character at the given index.",
+     "parameters": [
+      {
+       "name": "index",
+       "type": "number",
+       "description": "An integer between 0 and string.length -1, specifying the character."
+      }
+     ]
+    },
+    {
+     "name": "concat",
+     "returns": "string",
+     "description": "If necessary, converts the one or more given values to strings.",
+     "parameters": [
+      {
+       "name": "value",
+       "type": "string",
+       "description": "The values to be concatenated with the given string."
+      }
+     ]
+    },
+    {
+     "name": "fixed",
+     "returns": "string",
+     "description": "Returns a string consisting of this string enclosed in a <tt> tag.",
+     "parameters": []
+    },
+    {
+     "name": "fontcolor",
+     "returns": "string",
+     "description": "Returns a string consisting of this string enclosed in a <font> tag.",
+     "parameters": [
+      {
+       "name": "color",
+       "type": "string",
+       "description": "The value to be stored in the tag's color attribute."
+      }
+     ]
+    },
+    {
+     "name": "fontsize",
+     "returns": "string",
+     "description": "Returns a string consisting of this string enclosed in a <font> tag.",
+     "parameters": [
+      {
+       "name": "size",
+       "type": "number",
+       "description": "The value to be stored in the tag's size attribute."
+      }
+     ]
+    },
+    {
+     "name": "fromCharCode",
+     "returns": "string",
+     "static": true,
+     "description": "Returns a string created by concatenation one or more characters specified as ASCII values.",
+     "parameters": [
+      {
+       "name": "value1",
+       "type": "number",
+       "description": "One or more ASCII values."
+      }
+     ]
+    },
+    {
+     "name": "indexOf",
+     "returns": "number",
+     "description": "Returns the index within the string of the first occurrence of the specified string, starting the search at fromIndex if provided.",
+     "parameters": [
+      {
+       "name": "searchValue",
+       "type": "string",
+       "description": "The string for which to search."
+      },
+      {
+       "name": "offset",
+       "type": "number",
+       "description": "The starting offset of the search.",
+       "optional": true
+      }
+     ]
+    },
+    {
+     "name": "italics",
+     "returns": "string",
+     "description": "Returns a string consisting of this string enclosed in a <i> tag.",
+     "parameters": []
+    },
+    {
+     "name": "lastIndexOf",
+     "returns": "number",
+     "description": "Returns the index within the string of the last occurrence of the specified value.",
+     "parameters": [
+      {
+       "name": "searchValue",
+       "type": "string",
+       "description": "The string for which to search."
+      },
+      {
+       "name": "offset",
+       "type": "number",
+       "description": "The starting offset of the search.",
+       "optional": true
+      }
+     ]
+    },
+    {
+     "name": "link",
+     "returns": "string",
+     "description": "Returns a string consisting of this string enclosed in a <a> tag.",
+     "parameters": [
+      {
+       "name": "href",
+       "type": "string",
+       "description": "The value to be stored in the tag's href attribute."
+      }
+     ]
+    },
+    {
+     "name": "localeCompare",
+     "returns": "number",
+     "description": "Performs a localized comparison of two strings.",
+     "parameters": [
+      {
+       "name": "what",
+       "type": "string",
+       "description": "The string to compare with."
+      }
+     ]
+    },
+    {
+     "name": "match",
+     "returns": "any[]",
+     "description": "Matches a string against a regular expression.",
+     "parameters": [
+      {
+       "name": "regexp",
+       "type": "RegExp",
+       "description": "The regular expression to use."
+      }
+     ]
+    },
+    {
+     "name": "replace",
+     "returns": "string",
+     "description": "",
+     "parameters": [
+      {
+       "name": "what",
+       "type": "any",
+       "description": ""
+      },
+      {
+       "name": "with",
+       "type": "string",
+       "description": ""
+      }
+     ]
+    },
+    {
+     "name": "search",
+     "returns": "number",
+     "description": "",
+     "parameters": [
+      {
+       "name": "search",
+       "type": "RegExp",
+       "description": ""
+      }
+     ]
+    },
+    {
+     "name": "slice",
+     "returns": "string",
+     "description": "Extracts a substring of the given string and returns it as a new string.",
+     "parameters": [
+      {
+       "name": "startSlice",
+       "type": "number",
+       "description": "The index at which to begin extraction."
+      },
+      {
+       "name": "endSlice",
+       "type": "number",
+       "description": "The index at which to end extraction.",
+       "optional": true
+      }
+     ]
+    },
+    {
+     "name": "small",
+     "returns": "string",
+     "description": "Returns a string consisting of this string enclosed in a <small> tag.",
+     "parameters": []
+    },
+    {
+     "name": "split",
+     "returns": "string",
+     "description": "Splits a string into a group of substrings, places those strings in an array, and returns the array.",
+     "parameters": [
+      {
+       "name": "delimiter",
+       "type": "string",
+       "description": "Specifies the string to use for delimiting."
+      },
+      {
+       "name": "limit",
+       "type": "number",
+       "description": ""
+      }
+     ]
+    },
+    {
+     "name": "strike",
+     "returns": "string",
+     "description": "Returns a string consisting of this string enclosed in a <strike> tag.",
+     "parameters": []
+    },
+    {
+     "name": "sub",
+     "returns": "string",
+     "description": "Returns a string consisting of this string enclosed in a <sub> tag.",
+     "parameters": []
+    },
+    {
+     "name": "substr",
+     "returns": "string",
+     "description": "Returns a string containing the characters beginning at the specified index, start, through the specified number of characters.",
+     "parameters": [
+      {
+       "name": "start",
+       "type": "number",
+       "description": "Location at which to begin extracting characters."
+      },
+      {
+       "name": "length",
+       "type": "number",
+       "description": "(OptIonal) The number of characters to extract."
+      }
+     ]
+    },
+    {
+     "name": "substring",
+     "returns": "string",
+     "description": "Returns a substring of the given string by extracting characters from indexA up to but not including indexB.",
+     "parameters": [
+      {
+       "name": "indexA",
+       "type": "number",
+       "description": "The index to begin extracting."
+      },
+      {
+       "name": "indexB",
+       "type": "number",
+       "description": "(Optional) The index at which to end extraction."
+      }
+     ]
+    },
+    {
+     "name": "sup",
+     "returns": "string",
+     "description": "Returns a string consisting of this string enclosed in a <sup> tag.",
+     "parameters": []
+    },
+    {
+     "name": "toLocaleLowerCase",
+     "returns": "string",
+     "description": "Returns a new string which contains all the characters of the original string converted to lowercase (localized).",
+     "parameters": []
+    },
+    {
+     "name": "toLocaleUpperCase",
+     "returns": "string",
+     "description": "Returns a new string which contains all the characters of the original string converted to uppercase (localized).",
+     "parameters": []
+    },
+    {
+     "name": "toLowerCase",
+     "returns": "string",
+     "description": "Returns a new string which contains all the characters of the original string converted to lowercase.",
+     "parameters": []
+    },
+    {
+     "name": "toSource",
+     "returns": "string",
+     "description": "Creates a string representation of this object that can be fed back to eval() to re-create an object. Works only with built-in classes.",
+     "parameters": []
+    },
+    {
+     "name": "toString",
+     "returns": "string",
+     "description": "Returns itself.",
+     "parameters": []
+    },
+    {
+     "name": "toUpperCase",
+     "returns": "string",
+     "description": "Returns a new string which contains all the characters of the original string converted to uppercase.",
+     "parameters": []
+    },
+    {
+     "name": "valueOf",
+     "returns": "string",
+     "description": "Returns itself.",
+     "parameters": []
+    }
+   ]
+  },
+  {
+   "name": "UnitValue",
+   "page": "UnitValue.html",
+   "kind": "Object",
+   "description": "Represents a measurement as a combination of values and unit.",
+   "properties": [
+    {
+     "name": "baseUnit",
+     "type": "UnitValue",
+     "description": "The base unit for all conversions.",
+     "access": "read/write",
+     "static": true
+    },
+    {
+     "name": "baseUnit",
+     "type": "UnitValue",
+     "description": "The base unit.",
+     "access": "read/write"
+    },
+    {
+     "name": "type",
+     "type": "string",
+     "description": "The unit name.",
+     "access": "readonly"
+    },
+    {
+     "name": "value",
+     "type": "number",
+     "description": "The numeric value.",
+     "access": "read/write"
+    }
+   ],
+   "events": [],
+   "methods": [
+    {
+     "name": "as",
+     "returns": "UnitValue",
+     "description": "Returns this instance as a different unit.",
+     "parameters": [
+      {
+       "name": "unitName",
+       "type": "string",
+       "description": "The unit name."
+      }
+     ]
+    },
+    {
+     "name": "convert",
+     "returns": "any",
+     "description": "Converts this instance to a different unit.",
+     "parameters": [
+      {
+       "name": "unitName",
+       "type": "string",
+       "description": "The unit name."
+      }
+     ]
+    }
+   ]
+  },
+  {
+   "name": "XML",
+   "page": "XML.html",
+   "kind": "Object",
+   "description": "Wraps XML into an object.",
+   "properties": [
+    {
+     "name": "ignoreComments",
+     "type": "boolean",
+     "description": "Controls whether XML comments should be parsed (false) or ignored (true).",
+     "access": "read/write",
+     "static": true,
+     "value": "true"
+    },
+    {
+     "name": "ignoreProcessingInstructions",
+     "type": "boolean",
+     "description": "Controls whether XML preprocessing instructions should be parsed (false) or ignored (true).",
+     "access": "read/write",
+     "static": true,
+     "value": "true"
+    },
+    {
+     "name": "ignoreWhitespace",
+     "type": "boolean",
+     "description": "Controls whether whitespace should be parsed (false) or ignored (true).",
+     "access": "read/write",
+     "static": true,
+     "value": "true"
+    },
+    {
+     "name": "prettyIndent",
+     "type": "number",
+     "description": "The number of spaces used to indent pretty-printed XML.",
+     "access": "read/write",
+     "static": true,
+     "value": "2"
+    },
+    {
+     "name": "prettyPrinting",
+     "type": "boolean",
+     "description": "When true, XML is pretty-printed when converting to a string.",
+     "access": "read/write",
+     "static": true,
+     "value": "true"
+    }
+   ],
+   "events": [],
+   "methods": [
+    {
+     "name": "XML",
+     "returns": "XML",
+     "description": "Parses an XML string. Throws an error if the XML is incorrect.",
+     "parameters": [
+      {
+       "name": "text",
+       "type": "string",
+       "description": "The text to parse."
+      }
+     ]
+    },
+    {
+     "name": "addNamespace",
+     "returns": "XML",
+     "description": "Adds a namespace declaration to the node. Returns the XML object itself.",
+     "parameters": [
+      {
+       "name": "namespace",
+       "type": "Namespace",
+       "description": "The namespace to add."
+      }
+     ]
+    },
+    {
+     "name": "appendChild",
+     "returns": "XML",
+     "description": "Appends the given XML to this XML as a child. Returns the XML object itself.",
+     "parameters": [
+      {
+       "name": "child",
+       "type": "XML",
+       "description": "The child XML to add."
+      }
+     ]
+    },
+    {
+     "name": "attribute",
+     "returns": "XML",
+     "description": "Returns a list containing all attribute elements matching the given name.",
+     "parameters": [
+      {
+       "name": "name",
+       "type": "string",
+       "description": "The attribute name to look for."
+      }
+     ]
+    },
+    {
+     "name": "attributes",
+     "returns": "XML",
+     "description": "Returns a list containing all attribute elements.",
+     "parameters": []
+    },
+    {
+     "name": "child",
+     "returns": "XML",
+     "description": "Returns a list containing all children of this XML matching the given element name.",
+     "parameters": [
+      {
+       "name": "name",
+       "type": "string",
+       "description": "The name or the index of the child element."
+      }
+     ]
+    },
+    {
+     "name": "childIndex",
+     "returns": "number",
+     "description": "Returns a number representing the ordinal position of this XML object within the context of its parent.",
+     "parameters": []
+    },
+    {
+     "name": "children",
+     "returns": "XML",
+     "description": "Returns an XML object containing all the properties of this XML object in order.",
+     "parameters": []
+    },
+    {
+     "name": "comments",
+     "returns": "XML",
+     "description": "Returns an XML object containing the properties of this XML object that represent XML comments.",
+     "parameters": []
+    },
+    {
+     "name": "contains",
+     "returns": "boolean",
+     "description": "Checks if this XML object contains the given XML object.",
+     "parameters": [
+      {
+       "name": "xml",
+       "type": "XML",
+       "description": "The XML to search for."
+      }
+     ]
+    },
+    {
+     "name": "copy",
+     "returns": "XML",
+     "description": "Creates a copy of this XML object.",
+     "parameters": []
+    },
+    {
+     "name": "defaultSettings",
+     "returns": "Object",
+     "static": true,
+     "description": "Returns an object containing the default parsing and print settings for XML.",
+     "parameters": []
+    },
+    {
+     "name": "descendants",
+     "returns": "XML",
+     "description": "Returns all the XML-valued descendants of this XML object with the given name.",
+     "parameters": [
+      {
+       "name": "name",
+       "type": "string",
+       "description": "The name of the descendant to find.",
+       "optional": true
+      }
+     ]
+    },
+    {
+     "name": "elements",
+     "returns": "XML",
+     "description": "Returns a list of XML children that are elements with a given name, or all children that are XML elements.",
+     "parameters": [
+      {
+       "name": "name",
+       "type": "string",
+       "description": "The element name. If not supplied, gets all children that are XML elements.",
+       "optional": true
+      }
+     ]
+    },
+    {
+     "name": "hasComplexContent",
+     "returns": "boolean",
+     "description": "Reports whether this XML object contains complex content.",
+     "parameters": []
+    },
+    {
+     "name": "hasSimpleContent",
+     "returns": "boolean",
+     "description": "Reports whether this XML object contains simple content.",
+     "parameters": []
+    },
+    {
+     "name": "inScopeNamespaces",
+     "returns": "any[]",
+     "description": "Returns an array of Namespace objects mirroring the current list of valid namespaces at this element.",
+     "parameters": []
+    },
+    {
+     "name": "insertChildAfter",
+     "returns": "void",
+     "description": "Inserts the given child2 after the given child1 in this XML object and returns this XML object.",
+     "parameters": [
+      {
+       "name": "child1",
+       "type": "XML",
+       "description": "The child to insert the other child after."
+      },
+      {
+       "name": "child2",
+       "type": "XML",
+       "description": "The XML to insert."
+      }
+     ]
+    },
+    {
+     "name": "insertChildBefore",
+     "returns": "void",
+     "description": "Inserts the given child2 before the given child1 in this XML object and returns this XML object.",
+     "parameters": [
+      {
+       "name": "child1",
+       "type": "XML",
+       "description": "The child to search for."
+      },
+      {
+       "name": "child2",
+       "type": "XML",
+       "description": "The XML to insert."
+      }
+     ]
+    },
+    {
+     "name": "length",
+     "returns": "number",
+     "description": "Returns the number of elements contained in an XML list. If this XML object is not a list, returns 1.",
+     "parameters": []
+    },
+    {
+     "name": "localName",
+     "returns": "string",
+     "description": "Returns the local name of this XML object.",
+     "parameters": []
+    },
+    {
+     "name": "name",
+     "returns": "QName",
+     "description": "Returns a QName object containing the URI and the local name of the element.",
+     "parameters": []
+    },
+    {
+     "name": "namespace",
+     "returns": "Namespace",
+     "description": "Returns a Namespace object containing the namespace URI of the current element.",
+     "parameters": []
+    },
+    {
+     "name": "namespaceDeclarations",
+     "returns": "any[]",
+     "description": "Returns an array containing all namespace declarations of this XML object.",
+     "parameters": []
+    },
+    {
+     "name": "nodeKind",
+     "returns": "string",
+     "description": "Returns the type of this XML object as one of the strings \"element\", \"attribute\", \"comment\", \"processing-instruction\", or \"text\".",
+     "parameters": []
+    },
+    {
+     "name": "normalize",
+     "returns": "XML",
+     "description": "Puts all text nodes in this and all descendant XML objects into a normal form by merging adjacent text nodes and eliminating empty text nodes. Returns this XML object.",
+     "parameters": []
+    },
+    {
+     "name": "parent",
+     "returns": "XML",
+     "description": "Returns the parent object of this XML object.",
+     "parameters": []
+    },
+    {
+     "name": "prependChild",
+     "returns": "XML",
+     "description": "Inserts a given child into this object before its existing XML properties, and returns this XML object.",
+     "parameters": [
+      {
+       "name": "child",
+       "type": "XML",
+       "description": "The XML to insert."
+      }
+     ]
+    },
+    {
+     "name": "processingInstructions",
+     "returns": "XML",
+     "description": "Returns a list of preprocessing instructions.",
+     "parameters": [
+      {
+       "name": "name",
+       "type": "string",
+       "description": "The name of the preprocessing instruction to return.",
+       "optional": true
+      }
+     ]
+    },
+    {
+     "name": "removeNamespace",
+     "returns": "XML",
+     "description": "Removes the given namespace from this XML, and returns this XML.",
+     "parameters": [
+      {
+       "name": "namespace",
+       "type": "Namespace",
+       "description": "The namespace to remove."
+      }
+     ]
+    },
+    {
+     "name": "replace",
+     "returns": "XML",
+     "description": "Replaces the value of specified XML properties of this XML object returns this XML object.",
+     "parameters": [
+      {
+       "name": "name",
+       "type": "string",
+       "description": "The property name."
+      },
+      {
+       "name": "value",
+       "type": "XML",
+       "description": "The XML with which to replace the value of the matching property."
+      }
+     ]
+    },
+    {
+     "name": "setChildren",
+     "returns": "XML",
+     "description": "Replaces all of the XML-valued properties in this object with a new value, and returns this XML object.",
+     "parameters": [
+      {
+       "name": "value",
+       "type": "XML",
+       "description": "The new value, which can be a single XML object or an XML list."
+      }
+     ]
+    },
+    {
+     "name": "setLocalName",
+     "returns": "void",
+     "description": "Replaces the local name of this XML object with a string constructed from the given name",
+     "parameters": [
+      {
+       "name": "name",
+       "type": "string",
+       "description": "The name to set."
+      }
+     ]
+    },
+    {
+     "name": "setName",
+     "returns": "void",
+     "description": "Replaces the name of this XML object with the given QName object.",
+     "parameters": [
+      {
+       "name": "name",
+       "type": "QName",
+       "description": "The fully qualified name."
+      }
+     ]
+    },
+    {
+     "name": "setNamespace",
+     "returns": "void",
+     "description": "Sets the namespace for this XML element.",
+     "parameters": [
+      {
+       "name": "namespace",
+       "type": "Namespace",
+       "description": "The namespace to set."
+      }
+     ]
+    },
+    {
+     "name": "setSettings",
+     "returns": "void",
+     "static": true,
+     "description": "Sets the parsing and print setting for XML using an object returned by the settings() method.",
+     "parameters": [
+      {
+       "name": "obj",
+       "type": "Object",
+       "description": "The object containing the settings to set."
+      }
+     ]
+    },
+    {
+     "name": "settings",
+     "returns": "Object",
+     "static": true,
+     "description": "Returns an object containing the current parsing and print settings for XML.",
+     "parameters": []
+    },
+    {
+     "name": "text",
+     "returns": "XML",
+     "description": "Returns an XML list containing all XML properties of this XML object that represent XML text nodes.",
+     "parameters": []
+    },
+    {
+     "name": "toString",
+     "returns": "string",
+     "description": "Returns the string representation of this object.",
+     "parameters": []
+    },
+    {
+     "name": "toXMLString",
+     "returns": "string",
+     "description": "Returns an XML-encoded string representation of this XML object.",
+     "parameters": []
+    },
+    {
+     "name": "xpath",
+     "returns": "XML",
+     "description": "Evaluates the given XPath expression in accordance with the W3C XPath recommendation, using this XML object as the context node.",
+     "parameters": [
+      {
+       "name": "expr",
+       "type": "string",
+       "description": "The XPath expression to use."
+      }
+     ]
+    }
+   ]
+  },
+  {
+   "name": "XMLList",
+   "page": "XMLList.html",
+   "kind": "Object",
+   "description": "An XML list object.",
+   "properties": [],
+   "events": [],
+   "methods": []
+  },
+  {
+   "name": "global",
+   "page": "global.html",
+   "kind": "Object",
+   "description": "The global methods and properties for ExtendScript.",
+   "properties": [
+    {
+     "name": "Infinity",
+     "type": "number",
+     "description": "The Infinity global property is a predefined variable with the value for infinity.",
+     "access": "read/write",
+     "value": "+Infinity"
+    },
+    {
+     "name": "NaN",
+     "type": "number",
+     "description": "The NaN global property is a predefined variable with the value NaN (Not-a-Number), as specified by the IEEE-754 standard.",
+     "access": "read/write",
+     "value": "NaN"
+    },
+    {
+     "name": "app",
+     "type": "Application",
+     "description": "The application object",
+     "access": "readonly"
+    },
+    {
+     "name": "undefined",
+     "type": "undefined",
+     "description": "This global property is a predefined variable with the value for an undefined value.",
+     "access": "read/write",
+     "value": "undefined"
+    }
+   ],
+   "events": [],
+   "methods": [
+    {
+     "name": "alert",
+     "returns": "void",
+     "description": "Displays an alert box",
+     "parameters": [
+      {
+       "name": "message",
+       "type": "string",
+       "description": "The text to display"
+      },
+      {
+       "name": "title",
+       "type": "string",
+       "description": "The title of the alert; ignored on the Macintosh",
+       "optional": true
+      },
+      {
+       "name": "errorIcon",
+       "type": "boolean",
+       "description": "Display an Error icon; ignored on the Macintosh"
+      }
+     ]
+    },
+    {
+     "name": "confirm",
+     "returns": "boolean",
+     "description": "Displays an alert box with Yes and No buttons; returns true for Yes",
+     "parameters": [
+      {
+       "name": "message",
+       "type": "string",
+       "description": "The text to display"
+      },
+      {
+       "name": "noAsDefault",
+       "type": "boolean",
+       "description": "Set to true to set the No button as the default button"
+      },
+      {
+       "name": "title",
+       "type": "string",
+       "description": "The title of the alert; ignored on the Macintosh",
+       "optional": true
+      }
+     ]
+    },
+    {
+     "name": "decodeURI",
+     "returns": "string",
+     "description": "Decodes a string created with encodeURI().",
+     "parameters": [
+      {
+       "name": "uri",
+       "type": "string",
+       "description": "The text to decode."
+      }
+     ]
+    },
+    {
+     "name": "decodeURIComponent",
+     "returns": "string",
+     "description": "Decodes a string created with encodeURIComponent().",
+     "parameters": [
+      {
+       "name": "uri",
+       "type": "string",
+       "description": "The text to decode."
+      }
+     ]
+    },
+    {
+     "name": "encodeURI",
+     "returns": "string",
+     "description": "Encodes a string after RFC2396.",
+     "parameters": [
+      {
+       "name": "text",
+       "type": "string",
+       "description": "The text to encode."
+      }
+     ]
+    },
+    {
+     "name": "encodeURIComponent",
+     "returns": "string",
+     "description": "Encodes a string after RFC2396.",
+     "parameters": [
+      {
+       "name": "text",
+       "type": "string",
+       "description": "The text to encode."
+      }
+     ]
+    },
+    {
+     "name": "escape",
+     "returns": "string",
+     "description": "Creates a URL-encoded string from aString.",
+     "parameters": [
+      {
+       "name": "aString",
+       "type": "string",
+       "description": "The string to be encoded."
+      }
+     ]
+    },
+    {
+     "name": "eval",
+     "returns": "any",
+     "description": "Evaluates its argument as a JavaScript script, and returns the result of evaluation.",
+     "parameters": [
+      {
+       "name": "stringExpression",
+       "type": "string",
+       "description": "The string to evaluate."
+      }
+     ]
+    },
+    {
+     "name": "isFinite",
+     "returns": "boolean",
+     "description": "Evaluates an expression and reports whether the result is a finite number.",
+     "parameters": [
+      {
+       "name": "expression",
+       "type": "number",
+       "description": "Any valid JavaScript expression."
+      }
+     ]
+    },
+    {
+     "name": "isNaN",
+     "returns": "boolean",
+     "description": "Evaluates an expression and reports whether the result is \"Not-a-Number\" (NaN).",
+     "parameters": [
+      {
+       "name": "expression",
+       "type": "number",
+       "description": "Any valid JavaScript expression."
+      }
+     ]
+    },
+    {
+     "name": "isXMLName",
+     "returns": "boolean",
+     "description": "Returns true if the supplied string is a valid XML name.",
+     "parameters": [
+      {
+       "name": "name",
+       "type": "string",
+       "description": "The XML name to test."
+      }
+     ]
+    },
+    {
+     "name": "localize",
+     "returns": "string",
+     "description": "Localizes a ZString-encoded string and merges additional arguments into the string.",
+     "parameters": [
+      {
+       "name": "what",
+       "type": "string",
+       "description": "The string to localize. A ZString-encoded string that can contain placeholder for additional arguments in the form %1 to %n."
+      },
+      {
+       "name": "argument",
+       "type": "any",
+       "description": "Optional argument(s) to be merged into the string. There may be more than one argument.",
+       "optional": true
+      }
+     ]
+    },
+    {
+     "name": "parseFloat",
+     "returns": "number",
+     "description": "Extracts a floating-point number from a string.",
+     "parameters": [
+      {
+       "name": "text",
+       "type": "string",
+       "description": "The string from which to extract a floating point number."
+      }
+     ]
+    },
+    {
+     "name": "parseInt",
+     "returns": "number",
+     "description": "Extracts an integer from a string.",
+     "parameters": [
+      {
+       "name": "text",
+       "type": "string",
+       "description": "The string from which to extract an integer."
+      },
+      {
+       "name": "base",
+       "type": "number",
+       "description": "The base of the string to parse (from base 2 to base 36).",
+       "range": {
+        "min": "2",
+        "max": "36"
+       },
+       "optional": true
+      }
+     ]
+    },
+    {
+     "name": "prompt",
+     "returns": "string",
+     "description": "Displays a dialog allowing the user to enter text",
+     "parameters": [
+      {
+       "name": "prompt",
+       "type": "string",
+       "description": "The text to display"
+      },
+      {
+       "name": "default",
+       "type": "string",
+       "description": "The default text to preset the edit field with",
+       "optional": true
+      },
+      {
+       "name": "title",
+       "type": "string",
+       "description": "The title of the dialog;",
+       "optional": true
+      }
+     ]
+    },
+    {
+     "name": "setDefaultXMLNamespace",
+     "returns": "void",
+     "description": "Defines the default XML namespace.",
+     "parameters": [
+      {
+       "name": "namespace",
+       "type": "Namespace",
+       "description": "The namespace to use."
+      }
+     ]
+    },
+    {
+     "name": "unescape",
+     "returns": "string",
+     "description": "Translates URL-encoded string into a regular string, and returns that string.",
+     "parameters": [
+      {
+       "name": "stringExpression",
+       "type": "string",
+       "description": "The URL-encoded string to convert."
+      }
+     ]
+    },
+    {
+     "name": "uneval",
+     "returns": "string",
+     "description": "Creates a source code representation of the supplied argument, and returns it as a string.",
+     "parameters": [
+      {
+       "name": "what",
+       "type": "any",
+       "description": "The object to uneval."
+      }
+     ]
+    }
+   ]
+  }
+ ]
+}

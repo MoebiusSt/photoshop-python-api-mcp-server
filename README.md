@@ -103,6 +103,33 @@ The server provides various tools for controlling Photoshop:
 - **Document Tools**: Create, open, and save documents
 - **Layer Tools**: Create text layers, solid color layers, etc.
 - **Session Tools**: Get information about Photoshop session, active document, selection
+- **Script and Action Tools**: Run JSX code or files, list, play and create actions
+- **DOM Reference Tools** (no running Photoshop needed): `photoshop_dom_info`, `photoshop_dom_lookup_class`,
+  `photoshop_dom_get_member`, `photoshop_dom_get_enum_values`, `photoshop_dom_search`
+
+### DOM Reference
+
+The DOM reference tools serve the ExtendScript API for writing `photoshop_execute_jsx` code. They read three
+bundled files from Gregor Fellenz' [indesignjs.de API reference](https://www.indesignjs.de/indesignapi/) in
+`photoshop_mcp_server/dom_reference/data/`:
+
+| Source | Content |
+|---|---|
+| `photoshop` | Photoshop object model, CC 2015.5 (newest model Adobe exported) |
+| `javascript` | ExtendScript Core JavaScript (`$`, `File`, `Folder`, `UnitValue`, `XML`, ...) |
+| `scriptui` | ScriptUI dialogs |
+
+Features added to Photoshop after CC 2015.5 without a DOM equivalent are scripted through the Action Manager
+(`executeAction`, `ActionDescriptor`). The reader requires api.json `formatVersion` 2 (static flags on methods,
+`page` file names).
+
+Refresh the files (compares the `contentHash` per target in the upstream `manifest.json` and verifies each
+download against its sha256):
+
+```bash
+python -m photoshop_mcp_server.dom_reference.update          # download changed files
+python -m photoshop_mcp_server.dom_reference.update --check  # only report changes
+```
 
 ## Example Prompts for AI Assistants
 
@@ -159,3 +186,5 @@ MIT
 
 - [photoshop-python-api](https://github.com/loonghao/photoshop-python-api) - Python API for Photoshop
 - [Model Context Protocol](https://github.com/modelcontextprotocol/python-sdk) - MCP Python SDK
+- [indesignjs.de API reference](https://www.indesignjs.de/indesignapi/) by Gregor Fellenz, continuing Theunis de Jong's
+  (Jongware) reference - source of the bundled DOM reference data

@@ -22,6 +22,9 @@ def register(mcp):
         A JSON.stringify polyfill is automatically injected since Photoshop's
         ExtendScript engine is based on ECMAScript 3 which lacks native JSON.
 
+        Look up classes, members and enums with the photoshop_dom_* tools before
+        writing the script.
+
         Args:
             script: JavaScript/JSX code to execute in Photoshop.
                     The script should return a value (string, number, or JSON string).
