@@ -11,6 +11,64 @@ from tenacity import retry, retry_if_exception_type, stop_after_attempt, wait_fi
 # Type variable for generic function
 T = TypeVar("T")
 
+#: Sentinel returned by :func:`try_float` when a measurement cannot be read.
+UNCONVERTIBLE = object()
+
+
+def to_float(value: Any, default: float = 0.0) -> float:
+    """Convert a Photoshop measurement into a plain float.
+
+    Photoshop's COM interface is late-bound, so a measurement property such as
+    ``Document.width`` does not have a stable Python type across Photoshop
+    builds: some return a ``UnitValue`` object exposing the number as ``.value``,
+    others return a plain ``float`` directly. Reading ``.value`` unconditionally
+    raises ``AttributeError: 'float' object has no attribute 'value'`` on the
+    builds that return a float.
+
+    Args:
+        value: The raw value returned by Photoshop. Accepts a ``UnitValue``-like
+            object (anything exposing a numeric ``.value``), a number, or a
+            numeric string. ``None`` and non-convertible values yield ``default``.
+        default: Value returned when the measurement cannot be converted.
+
+    Returns:
+        float: The measurement as a float, or ``default`` if unconvertible.
+
+    """
+    raw = getattr(value, "value", value)
+    try:
+        return float(raw)
+    except (TypeError, ValueError):
+        logger.warning(f"Could not convert {raw!r} to float, using default {default!r}")
+        return default
+
+
+def try_float(value: Any) -> float | object:
+    """Convert a Photoshop measurement into a float, or report it unreadable.
+
+    Same conversion rules as :func:`to_float`, but instead of collapsing an
+    unreadable measurement into a stand-in number it returns the
+    :data:`UNCONVERTIBLE` sentinel. Callers that must tell a real ``0.0`` apart
+    from a measurement Photoshop never reported use this and pick their own
+    fallback afterwards.
+
+    The warning log is kept, so an unreadable measurement stays visible in the
+    server log whether or not the caller surfaces the condition to the client.
+
+    Args:
+        value: The raw value returned by Photoshop.
+
+    Returns:
+        float | object: The measurement as a float, or ``UNCONVERTIBLE``.
+
+    """
+    raw = getattr(value, "value", value)
+    try:
+        return float(raw)
+    except (TypeError, ValueError):
+        logger.warning(f"Could not convert {raw!r} to float; dimensions unavailable")
+        return UNCONVERTIBLE
+
 
 def with_retry(
     max_attempts: int = 3, wait_seconds: float = 2.0

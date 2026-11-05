@@ -1,9 +1,15 @@
 """Document-related MCP tools."""
 
+import traceback
+
 import photoshop.api as ps
 
+from photoshop_mcp_server.logging_config import get_logger
 from photoshop_mcp_server.ps_adapter.application import PhotoshopApp
+from photoshop_mcp_server.ps_adapter.utils import UNCONVERTIBLE, to_float, try_float
 from photoshop_mcp_server.registry import register_tool
+
+logger = get_logger(__name__)
 
 
 def register(mcp):
@@ -33,8 +39,12 @@ def register(mcp):
             dict: Result of the operation.
 
         """
-        print(
-            f"Creating document: width={width}, height={height}, name={name}, mode={mode}"
+        logger.debug(
+            "Creating document: width=%s, height=%s, name=%s, mode=%s",
+            width,
+            height,
+            name,
+            mode,
         )
         ps_app = PhotoshopApp()
         try:
@@ -53,8 +63,12 @@ def register(mcp):
                 }
 
             # Create document
-            print(
-                f"Calling ps_app.create_document with width={width}, height={height}, name={name}, mode={mode}"
+            logger.debug(
+                "Calling ps_app.create_document with width=%s, height=%s, name=%s, mode=%s",
+                width,
+                height,
+                name,
+                mode,
             )
             doc = ps_app.create_document(
                 width=width, height=height, name=name, mode=mode
@@ -68,37 +82,19 @@ def register(mcp):
 
             # Get document properties safely
             try:
-                print("Document created, getting properties")
+                logger.debug("Document created, getting properties")
                 doc_name = doc.name
-                print(f"Document name: {doc_name}")
+                logger.debug("Document name: %s", doc_name)
 
-                # Get width safely
-                doc_width = width  # Default fallback
-                if hasattr(doc, "width"):
-                    width_obj = doc.width
-                    print(f"Width object type: {type(width_obj)}")
-                    if hasattr(width_obj, "value"):
-                        doc_width = width_obj.value
-                    else:
-                        try:
-                            doc_width = float(width_obj)
-                        except (TypeError, ValueError):
-                            print(f"Could not convert width to float: {width_obj}")
-                print(f"Document width: {doc_width}")
-
-                # Get height safely
-                doc_height = height  # Default fallback
-                if hasattr(doc, "height"):
-                    height_obj = doc.height
-                    print(f"Height object type: {type(height_obj)}")
-                    if hasattr(height_obj, "value"):
-                        doc_height = height_obj.value
-                    else:
-                        try:
-                            doc_height = float(height_obj)
-                        except (TypeError, ValueError):
-                            print(f"Could not convert height to float: {height_obj}")
-                print(f"Document height: {doc_height}")
+                # `doc.width` / `doc.height` are either a UnitValue (with `.value`)
+                # or a plain float depending on the Photoshop build.
+                doc_width = to_float(getattr(doc, "width", None), default=float(width))
+                doc_height = to_float(
+                    getattr(doc, "height", None), default=float(height)
+                )
+                logger.debug(
+                    "Document dimensions: width=%s, height=%s", doc_width, doc_height
+                )
 
                 return {
                     "success": True,
@@ -107,10 +103,8 @@ def register(mcp):
                     "height": doc_height,
                 }
             except Exception as prop_error:
-                print(f"Error getting document properties: {prop_error}")
-                import traceback
-
-                traceback.print_exc()
+                logger.warning("Error getting document properties: %s", prop_error)
+                logger.debug(traceback.format_exc())
                 # Document was created but we couldn't get properties
                 return {
                     "success": True,
@@ -120,11 +114,10 @@ def register(mcp):
                     "warning": f"Created document but couldn't get properties: {prop_error!s}",
                 }
         except Exception as e:
-            print(f"Error creating document: {e}")
-            import traceback
+            logger.error("Error creating document: %s", e)
 
             tb_text = traceback.format_exc()
-            traceback.print_exc()
+            logger.debug(tb_text)
 
             # Create a detailed error message
             detailed_error = (
@@ -166,12 +159,24 @@ def register(mcp):
         ps_app = PhotoshopApp()
         try:
             doc = ps_app.open_document(file_path)
-            return {
+            # `doc.width` / `doc.height` are either a UnitValue (with `.value`)
+            # or a plain float depending on the Photoshop build. When neither can
+            # be read the dimensions are reported as 0.0 and flagged as
+            # unavailable, so a client can tell a genuine zero apart from an
+            # unreadable measurement.
+            width = try_float(getattr(doc, "width", None))
+            height = try_float(getattr(doc, "height", None))
+
+            result = {
                 "success": True,
                 "document_name": doc.name,
-                "width": doc.width.value,
-                "height": doc.height.value,
+                "width": 0.0 if width is UNCONVERTIBLE else width,
+                "height": 0.0 if height is UNCONVERTIBLE else height,
             }
+            if width is UNCONVERTIBLE or height is UNCONVERTIBLE:
+                result["dimensions_unavailable"] = True
+
+            return result
         except Exception as e:
             return {"success": False, "error": str(e)}
 

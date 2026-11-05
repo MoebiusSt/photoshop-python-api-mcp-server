@@ -8,7 +8,10 @@ from typing import Any
 
 import photoshop.api as ps
 
+from photoshop_mcp_server.logging_config import get_logger
 from photoshop_mcp_server.ps_adapter.application import PhotoshopApp
+
+logger = get_logger(__name__)
 
 
 class ActionManager:
@@ -95,7 +98,7 @@ class ActionManager:
                 if desc.hasKey(cls.str_id_to_char_id("title")):
                     result["name"] = desc.getString(cls.str_id_to_char_id("title"))
             except Exception as e:
-                print(f"Error getting document name: {e}")
+                logger.warning("Error getting document name: %s", e)
 
             try:
                 if desc.hasKey(cls.char_id_to_type_id("Wdth")):
@@ -103,7 +106,7 @@ class ActionManager:
                         cls.char_id_to_type_id("Wdth")
                     )
             except Exception as e:
-                print(f"Error getting document width: {e}")
+                logger.warning("Error getting document width: %s", e)
 
             try:
                 if desc.hasKey(cls.char_id_to_type_id("Hght")):
@@ -111,7 +114,7 @@ class ActionManager:
                         cls.char_id_to_type_id("Hght")
                     )
             except Exception as e:
-                print(f"Error getting document height: {e}")
+                logger.warning("Error getting document height: %s", e)
 
             try:
                 if desc.hasKey(cls.char_id_to_type_id("Rslt")):
@@ -119,7 +122,7 @@ class ActionManager:
                         cls.char_id_to_type_id("Rslt")
                     )
             except Exception as e:
-                print(f"Error getting document resolution: {e}")
+                logger.warning("Error getting document resolution: %s", e)
 
             try:
                 if desc.hasKey(cls.char_id_to_type_id("Md  ")):
@@ -133,7 +136,7 @@ class ActionManager:
                     result["mode"] = mode_map.get(mode_id, f"Unknown ({mode_id})")
                     result["color_mode"] = result["mode"]
             except Exception as e:
-                print(f"Error getting document mode: {e}")
+                logger.warning("Error getting document mode: %s", e)
 
             try:
                 if desc.hasKey(cls.char_id_to_type_id("Dpth")):
@@ -141,14 +144,14 @@ class ActionManager:
                         cls.char_id_to_type_id("Dpth")
                     )
             except Exception as e:
-                print(f"Error getting document bit depth: {e}")
+                logger.warning("Error getting document bit depth: %s", e)
 
             try:
                 if desc.hasKey(cls.str_id_to_char_id("fileReference")):
                     file_ref = desc.getPath(cls.str_id_to_char_id("fileReference"))
                     result["path"] = str(file_ref)
             except Exception as e:
-                print(f"Error getting document path: {e}")
+                logger.warning("Error getting document path: %s", e)
 
             # Get layers info using PhotoshopApp document object
             try:
@@ -158,16 +161,18 @@ class ActionManager:
                     art_layers = []
                     for i, layer in enumerate(doc.artLayers):
                         try:
-                            art_layers.append({
-                                "index": i,
-                                "name": layer.name,
-                                "visible": layer.visible,
-                                "kind": str(layer.kind),
-                                "opacity": layer.opacity,
-                                "blending_mode": str(layer.blendMode),
-                            })
+                            art_layers.append(
+                                {
+                                    "index": i,
+                                    "name": layer.name,
+                                    "visible": layer.visible,
+                                    "kind": str(layer.kind),
+                                    "opacity": layer.opacity,
+                                    "blending_mode": str(layer.blendMode),
+                                }
+                            )
                         except Exception as e:
-                            print(f"Error getting art layer {i}: {e}")
+                            logger.warning("Error getting art layer %s: %s", i, e)
                     result["layers"] = art_layers
 
                     # Get layer sets (groups)
@@ -177,39 +182,45 @@ class ActionManager:
                             set_layers = []
                             for j, layer in enumerate(ls.artLayers):
                                 try:
-                                    set_layers.append({
-                                        "index": j,
-                                        "name": layer.name,
-                                        "visible": layer.visible,
-                                        "kind": str(layer.kind),
-                                    })
+                                    set_layers.append(
+                                        {
+                                            "index": j,
+                                            "name": layer.name,
+                                            "visible": layer.visible,
+                                            "kind": str(layer.kind),
+                                        }
+                                    )
                                 except Exception:
                                     pass
-                            layer_sets.append({
-                                "index": i,
-                                "name": ls.name,
-                                "visible": ls.visible,
-                                "layers": set_layers,
-                            })
+                            layer_sets.append(
+                                {
+                                    "index": i,
+                                    "name": ls.name,
+                                    "visible": ls.visible,
+                                    "layers": set_layers,
+                                }
+                            )
                         except Exception as e:
-                            print(f"Error getting layer set {i}: {e}")
+                            logger.warning("Error getting layer set %s: %s", i, e)
                     result["layer_sets"] = layer_sets
 
                     # Get channels
                     channels = []
                     for i, ch in enumerate(doc.channels):
                         try:
-                            channels.append({
-                                "index": i,
-                                "name": ch.name,
-                                "kind": str(ch.kind),
-                                "visible": ch.visible,
-                            })
+                            channels.append(
+                                {
+                                    "index": i,
+                                    "name": ch.name,
+                                    "kind": str(ch.kind),
+                                    "visible": ch.visible,
+                                }
+                            )
                         except Exception as e:
-                            print(f"Error getting channel {i}: {e}")
+                            logger.warning("Error getting channel %s: %s", i, e)
                     result["channels"] = channels
             except Exception as e:
-                print(f"Error getting layers/layer_sets/channels: {e}")
+                logger.warning("Error getting layers/layer_sets/channels: %s", e)
 
             return result
 
@@ -217,8 +228,8 @@ class ActionManager:
             import traceback
 
             tb_text = traceback.format_exc()
-            print(f"Error in get_active_document_info: {e}")
-            print(tb_text)
+            logger.error("Error in get_active_document_info: %s", e)
+            logger.debug(tb_text)
             return {"success": False, "error": str(e), "detailed_error": tb_text}
 
     @classmethod
@@ -305,7 +316,7 @@ class ActionManager:
                         "area": width * height,
                     }
             except Exception as e:
-                print(f"Error getting selection bounds: {e}")
+                logger.warning("Error getting selection bounds: %s", e)
                 return {
                     "success": True,
                     "has_selection": True,
@@ -319,8 +330,8 @@ class ActionManager:
             import traceback
 
             tb_text = traceback.format_exc()
-            print(f"Error in get_selection_info: {e}")
-            print(tb_text)
+            logger.error("Error in get_selection_info: %s", e)
+            logger.debug(tb_text)
             return {
                 "success": False,
                 "has_selection": False,
@@ -405,7 +416,7 @@ class ActionManager:
 
                         docs.append(doc_info)
                     except Exception as e:
-                        print(f"Error getting document {i} info: {e}")
+                        logger.warning("Error getting document %s info: %s", i, e)
 
                 info["documents"] = docs
 
@@ -461,7 +472,7 @@ class ActionManager:
 
                 info["preferences"] = prefs
             except Exception as e:
-                print(f"Error getting preferences: {e}")
+                logger.warning("Error getting preferences: %s", e)
 
             return info
 
@@ -469,8 +480,8 @@ class ActionManager:
             import traceback
 
             tb_text = traceback.format_exc()
-            print(f"Error in get_session_info: {e}")
-            print(tb_text)
+            logger.error("Error in get_session_info: %s", e)
+            logger.debug(tb_text)
             return {
                 "success": False,
                 "is_running": True,

@@ -1,0 +1,286 @@
+name: Release Please
+
+# Conventional commits drive the version: a push to main updates the
+# "chore: release vX.Y.Z" PR, and merging it creates the tag + GitHub Release.
+# The existing release/publish workflow then reacts to that tag.
+#
+# This repo ships more than a pure wheel (native binaries / platform archives),
+# so release-please stays in its own workflow and keeps the build matrix that
+# already works.
+#
+# No PAT is used. GitHub never starts a workflow from a tag pushed with the
+# default GITHUB_TOKEN, so instead of waiting for that tag to trigger the
+# publish pipeline, this workflow starts the pipeline itself when release-please
+# reports a release. The dispatch uses GITHUB_TOKEN, so a PAT silently expiring
+# can no longer stall releases.
+
+on:
+  push:
+    branches: [main]
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+concurrency:
+  group: release-please-main
+  cancel-in-progress: false
+
+jobs:
+  # ── Guard: only ask release-please for a release when there is something ───
+  # to release. release-please treats every commit on main as release input, so
+  # a workflow that re-generates files on the branch (lock sync, formatting)
+  # would otherwise keep the release PR alive on chore/ci/docs commits alone.
+  preflight:
+    runs-on: ubuntu-latest
+    outputs:
+      releasable: ${{ steps.check.outputs.releasable }}
+    steps:
+      - uses: actions/checkout@v6
+        with:
+          fetch-depth: 0
+          persist-credentials: false
+
+      - name: Check for releasable commits since the last release tag
+        id: check
+        env:
+          EVENT_NAME: ${{ github.event_name }}
+        run: |
+          set -euo pipefail
+
+          # A manual run is always allowed to proceed.
+          if [ "$EVENT_NAME" = "workflow_dispatch" ]; then
+            echo "workflow_dispatch: skipping the releasable-commit gate"
+            echo "releasable=true" >> "$GITHUB_OUTPUT"
+            exit 0
+          fi
+
+          # Only feat/fix/perf/refactor/revert and BREAKING CHANGE: move the
+          # version here; chore/ci/docs/test/style/build are release-neutral.
+          # The script fails open, so a broken range never suppresses a release.
+          python3 - <<'PY'
+          """Decide whether a commit window contains something worth releasing.
+
+          The release workflow uses this to keep release-please from cutting a release
+          for commits that do not move the product. release-please's own rule is blunt:
+          in ``determineReleaseType`` anything that is neither breaking nor a ``feat``
+          falls through to a patch bump, so a ``docs:`` or ``chore:`` commit alone is
+          enough to produce a release. That matters here because any automation that
+          regenerates files on the release branch would otherwise keep the release PR
+          alive.
+
+          The gate deliberately fails open: if the git range cannot be resolved the
+          script reports ``releasable=true`` so a release is never silently suppressed.
+
+          Input and output go through the environment (``GITHUB_OUTPUT``) rather than
+          argv so the body can be inlined into a workflow step unchanged.
+          """
+
+          # Import built-in modules
+          import os
+          import re
+          import subprocess
+          import sys
+          from pathlib import Path
+
+          # Only these conventional-commit types are treated as release-worthy. A
+          # ``BREAKING CHANGE:`` footer counts too, whatever the type of the commit.
+          RELEASABLE_PATTERN = re.compile(
+              r"^(feat|fix|perf|refactor|revert)(\([^)]*\))?!?:|^BREAKING CHANGE:",
+              re.MULTILINE,
+          )
+
+          TAG_PATTERN = "v*"
+
+
+          def git(*args):
+              """Run git and return (returncode, stdout)."""
+              result = subprocess.run(["git", *args], capture_output=True, text=True)
+              return result.returncode, result.stdout
+
+
+          def is_releasable(commit_text):
+              """Return True when a commit window contains at least one release-worthy commit.
+
+              ``commit_text`` is the concatenated ``%s%n%b`` (subject plus body) of every
+              commit in the window.
+              """
+              return bool(RELEASABLE_PATTERN.search(commit_text or ""))
+
+
+          def last_release_tag():
+              """Return the most recent ``v*`` tag reachable from HEAD, or None."""
+              code, out = git("describe", "--tags", "--match", TAG_PATTERN, "--abbrev=0")
+              if code != 0:
+                  return None
+              return out.strip() or None
+
+
+          def commit_window(range_spec):
+              """Return the combined subjects and bodies of the commits in a git range."""
+              code, out = git("log", "--no-merges", "--format=%s%n%b", range_spec)
+              if code != 0:
+                  raise RuntimeError(f"git log failed for range {range_spec!r}")
+              return out
+
+
+          def resolve_range():
+              """Return a git range covering everything since the last ``v*`` tag."""
+              tag = last_release_tag()
+              return f"{tag}..HEAD" if tag else "HEAD"
+
+
+          def decide(range_spec=None):
+              """Return True when the window should be released.
+
+              With no explicit range the window is everything since the last ``v*`` tag,
+              or the whole history when the repo has no such tag yet.
+              """
+              return is_releasable(commit_window(range_spec or resolve_range()))
+
+
+          def emit(releasable):
+              """Print the result and append it to $GITHUB_OUTPUT when one is set."""
+              line = f"releasable={str(releasable).lower()}"
+              print(line)
+              output = os.environ.get("GITHUB_OUTPUT")
+              if output:
+                  with Path(output).open("a", encoding="utf-8") as handle:
+                      handle.write(f"{line}\n")
+
+
+          def main():
+              """Return 0 always: this gate must never fail the workflow it guards."""
+              try:
+                  releasable = decide()
+              except (OSError, RuntimeError, ValueError) as error:
+                  # Fail open, but say why.
+                  print(f"::error::{error}")
+                  print("Failing open: treating the window as releasable")
+                  releasable = True
+              emit(releasable)
+              return 0
+
+
+          if __name__ == "__main__":
+              sys.exit(main())
+          PY
+
+  release-please:
+    needs: [preflight]
+    if: needs.preflight.outputs.releasable == 'true'
+    runs-on: ubuntu-latest
+    outputs:
+      release_created: ${{ steps.release.outputs.release_created }}
+      tag_name: ${{ steps.release.outputs.tag_name }}
+    permissions:
+      contents: write # tag + GitHub Release
+      pull-requests: write # the release PR itself
+    steps:
+      - uses: googleapis/release-please-action@v5
+        id: release
+        with:
+          # GITHUB_TOKEN, not a PAT. A PAT was only ever needed because a tag
+          # pushed with GITHUB_TOKEN cannot start another workflow; the `publish`
+          # job below calls the publish pipeline directly instead. Depending on
+          # a PAT here means an expired token silently stops every release,
+          # which is exactly what happened: every run of this workflow failed
+          # with "Bad credentials" and the tag never moved past v0.1.11.
+          token: ${{ secrets.GITHUB_TOKEN }}
+          target-branch: main
+          config-file: release-please-config.json
+          manifest-file: .release-please-manifest.json
+
+  # ── Publish ────────────────────────────────────────────────────────────────
+  # The tag release-please just pushed cannot start a workflow on its own, so
+  # the build and publish pipeline is started here.
+  #
+  # This used to be a `uses:` reusable-workflow call, which is what broke PyPI
+  # uploads: inside a reused callee the OIDC attestation records the CALLER's
+  # workflow as its build config, so PyPI saw release-please.yml where the
+  # Trusted Publisher only registers python-publish.yml, and rejected the
+  # upload with "400 Invalid attestations supplied during upload".
+  #
+  # Dispatching instead starts python-publish.yml as a top-level run, whose
+  # workflow ref is python-publish.yml - the ref PyPI expects - so attestations
+  # validate and provenance is kept.
+  #
+  # The step below blocks on the dispatched run's result rather than returning
+  # as soon as the dispatch is accepted, so a failed publish fails this job.
+  publish:
+    needs: [release-please]
+    if: needs.release-please.outputs.release_created == 'true'
+    runs-on: ubuntu-latest
+    # Bounds the wait on the dispatched run. Without it a stuck publish would
+    # hold this job to the 6h default, and because concurrency group
+    # release-please-main is cancel-in-progress: false, every queued
+    # release-please run would be stuck behind it too.
+    timeout-minutes: 90
+    permissions:
+      contents: read
+      # `gh workflow run` posts to /actions/workflows/{id}/dispatches, which
+      # needs actions: write. A job-level permissions block REPLACES the token's
+      # scope set rather than adding to it, so this key must be listed here:
+      # with `contents: read` alone the token gets actions: none and the
+      # dispatch fails with 403. The repo's default_workflow_permissions=write
+      # does not cover this, because this job declares permissions explicitly.
+      actions: write
+    steps:
+      - name: Trigger the build and publish pipeline
+        env:
+          GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+          TAG_NAME: ${{ needs.release-please.outputs.tag_name }}
+        run: |
+          # gh workflow run returns as soon as the dispatch is accepted, so on
+          # its own it would let this job go green even when the publish later
+          # fails - the same silent-pass shape as the v0.1.13 incident, where a
+          # release never reached PyPI and nobody noticed. Resolve the run id of
+          # what we just started, then block on its result.
+          #
+          # Take the timestamp immediately before dispatching, with NO lookback.
+          # gh run list returns newest-first, so a lookback window would let the
+          # first poll match an older unrelated run and report its result as if
+          # it were ours - exactly the silent pass this blocking step exists to
+          # prevent. With the window starting at the dispatch instant, anything
+          # that matches must be the run we just started.
+          #
+          # The dispatch is asynchronous, so the run may not be listed on the
+          # first poll; retry a bounded number of times before giving up. Clock
+          # skew in the safe direction (runner ahead of GitHub) makes this fail
+          # loudly rather than latch onto the wrong run.
+          set -euo pipefail
+          dispatched_at=$(date -u +%Y-%m-%dT%H:%M:%SZ)
+
+          gh workflow run python-publish.yml \
+            --ref "${GITHUB_REF_NAME}" \
+            -f tag_name="$TAG_NAME" \
+            -f publish_release=true
+
+          run_id=""
+          for attempt in $(seq 1 20); do
+            # --created is the coarse cut; the jq select re-asserts createdAt
+            # against the dispatch instant so the guarantee does not rest on the
+            # filter argument alone. gh's --jq does not accept --arg, so the
+            # timestamp travels through the environment as env.DISPATCHED_AT.
+            run_id=$(DISPATCHED_AT="$dispatched_at" gh run list \
+              --workflow python-publish.yml \
+              --branch "${GITHUB_REF_NAME}" \
+              --event workflow_dispatch \
+              --created ">=$dispatched_at" \
+              --limit 1 \
+              --json databaseId,createdAt \
+              --jq 'map(select(.createdAt >= env.DISPATCHED_AT)) | .[0].databaseId // empty' || true)
+            if [ -n "$run_id" ] && [ "$run_id" != "null" ]; then
+              break
+            fi
+            echo "Publish run not visible yet (attempt $attempt); retrying"
+            sleep 5
+          done
+
+          if [ -z "$run_id" ] || [ "$run_id" = "null" ]; then
+            echo "::error::Dispatched python-publish.yml but could not resolve its run id"
+            exit 1
+          fi
+
+          echo "Waiting for publish run $run_id"
+          gh run watch "$run_id" --exit-status --interval 15

@@ -1,7 +1,50 @@
 """Script execution MCP tools for Photoshop."""
 
+import json
+
 from photoshop_mcp_server.ps_adapter.application import PhotoshopApp
 from photoshop_mcp_server.registry import register_tool
+
+
+def _script_error_message(result):
+    r"""Return the failure message carried by a script payload, if any.
+
+    ``PhotoshopApp.execute_javascript`` catches every COM failure and reports it
+    as a JSON string such as ``{\"error\": \"...\", \"success\": false}`` instead of
+    raising. Without this check the tool would wrap a failed script in
+    ``{\"success\": true, ...}`` and hand the error string to the caller as if it
+    were script output, so callers could not tell failure from success.
+
+    Only an explicit ``success: false`` counts as a failure. A script may
+    legitimately return its own JSON object that carries an ``error`` key
+    (for example ``{"error": "no layers found"}``) without meaning the script
+    itself failed, so the ``error`` key alone is not enough to judge by.
+
+    Args:
+        result: The raw value returned by ``execute_javascript``.
+
+    Returns:
+        str or None: The error message when the payload describes a failure,
+            otherwise ``None``.
+
+    """
+    if not isinstance(result, str):
+        return None
+
+    try:
+        payload = json.loads(result)
+    except ValueError:
+        # Not JSON at all, so it is ordinary script output.
+        return None
+
+    if not isinstance(payload, dict):
+        return None
+
+    if payload.get("success") is not False or "error" not in payload:
+        return None
+
+    error = payload["error"]
+    return str(error) if error else "Script execution failed"
 
 
 def register(mcp):
@@ -32,7 +75,9 @@ def register(mcp):
 
         Returns:
             dict: Result containing 'success' flag and 'result' with the script output,
-                  or 'error' if execution failed.
+                  or 'error' if execution failed. A script that throws inside
+                  Photoshop, and a Photoshop instance that cannot be reached at
+                  all, both report ``success: false``.
 
         Examples:
             Get layer count:
@@ -61,18 +106,31 @@ def register(mcp):
                 '''
 
         """
-        ps_app = PhotoshopApp()
         try:
+            # Constructing PhotoshopApp() talks to Photoshop over COM, so it has
+            # to be inside the try as well or an unreachable host escapes as an
+            # unhandled exception instead of a reported failure.
+            ps_app = PhotoshopApp()
             result = ps_app.execute_javascript(script)
-            return {
-                "success": True,
-                "result": result,
-            }
         except Exception as e:
             return {
                 "success": False,
                 "error": str(e),
             }
+
+        # A script that throws does not raise here: execute_javascript() reports
+        # it as a JSON payload, so surface that payload as a tool-level failure.
+        error_message = _script_error_message(result)
+        if error_message is not None:
+            return {
+                "success": False,
+                "error": error_message,
+            }
+
+        return {
+            "success": True,
+            "result": result,
+        }
 
     tool_name = register_tool(mcp, execute_jsx, "execute_jsx")
     registered = [tool_name]
@@ -110,12 +168,16 @@ def register(mcp):
             "return (result === undefined || result === null) ? 'ok' : String(result);"
             "})()"
         )
-        ps_app = PhotoshopApp()
         try:
+            ps_app = PhotoshopApp()
             result = ps_app.execute_javascript(script)
-            return {"success": True, "file_path": str(path.resolve()), "result": result}
         except Exception as e:
             return {"success": False, "file_path": str(path.resolve()), "error": str(e)}
+
+        error_message = _script_error_message(result)
+        if error_message is not None:
+            return {"success": False, "file_path": str(path.resolve()), "error": error_message}
+        return {"success": True, "file_path": str(path.resolve()), "result": result}
 
     registered.append(register_tool(mcp, execute_jsx_file, "execute_jsx_file"))
     return registered
