@@ -1,6 +1,7 @@
 """Script execution MCP tools for Photoshop."""
 
 import json
+from pathlib import Path
 
 from photoshop_mcp_server.ps_adapter.application import PhotoshopApp
 from photoshop_mcp_server.registry import register_tool
@@ -133,51 +134,48 @@ def register(mcp):
         }
 
     tool_name = register_tool(mcp, execute_jsx, "execute_jsx")
-    registered = [tool_name]
 
     def execute_jsx_file(file_path: str) -> dict:
-        """Execute a .jsx file on disk in Photoshop via $.evalFile.
+        """Execute a .jsx file on disk in Photoshop via ``$.evalFile``.
 
-        Use this for scripts in Presets/Scripts or any other folder, including
-        scripts that user actions also call.
+        Use this for existing script files, for example scripts in
+        ``Presets/Scripts`` that actions or users also run.
 
         Args:
             file_path: Absolute path to the .jsx file.
 
         Returns:
-            dict: success flag and eval result or error.
+            dict: 'success' flag, the resolved 'file_path' and the script's
+                'result', or 'error' if the file is missing or the script failed.
 
         """
-        from pathlib import Path
-
         path = Path(file_path)
         if not path.is_file():
             return {"success": False, "error": f"Script file not found: {file_path}"}
 
-        jsx_path = (
-            str(path.resolve())
-            .replace("\\", "\\\\")
-            .replace('"', '\\"')
-        )
+        resolved = str(path.resolve())
         script = (
             "(function () {"
             "app.displayDialogs = DialogModes.NO;"
-            f'var f = new File("{jsx_path}");'
-            "if (!f.exists) return JSON.stringify({success:false, error:'file not found'});"
+            f"var f = new File({json.dumps(resolved)});"
+            "if (!f.exists) {"
+            "return JSON.stringify({success: false, error: 'Script file not found'});"
+            "}"
             "var result = $.evalFile(f);"
-            "return (result === undefined || result === null) ? 'ok' : String(result);"
+            "return result === undefined ? undefined : String(result);"
             "})()"
         )
         try:
             ps_app = PhotoshopApp()
             result = ps_app.execute_javascript(script)
         except Exception as e:
-            return {"success": False, "file_path": str(path.resolve()), "error": str(e)}
+            return {"success": False, "file_path": resolved, "error": str(e)}
 
         error_message = _script_error_message(result)
         if error_message is not None:
-            return {"success": False, "file_path": str(path.resolve()), "error": error_message}
-        return {"success": True, "file_path": str(path.resolve()), "result": result}
+            return {"success": False, "file_path": resolved, "error": error_message}
 
-    registered.append(register_tool(mcp, execute_jsx_file, "execute_jsx_file"))
-    return registered
+        return {"success": True, "file_path": resolved, "result": result}
+
+    file_tool_name = register_tool(mcp, execute_jsx_file, "execute_jsx_file")
+    return [tool_name, file_tool_name]

@@ -105,8 +105,8 @@ The server provides various tools for controlling Photoshop:
 - **Session Tools**: Get information about Photoshop session, active document, selection
 - **Script Tools**: Run arbitrary Photoshop JavaScript (JSX) with `photoshop_execute_jsx`, or a `.jsx` file on disk
   with `photoshop_execute_jsx_file`
-- **Action Tools**: List, play and create actions (`photoshop_list_actions`, `photoshop_play_action`,
-  `photoshop_create_action_set`, `photoshop_create_action_with_script`)
+- **Action Tools**: List loaded action sets with `photoshop_list_actions` and run an action with
+  `photoshop_play_action`
 - **DOM Reference Tools** (no running Photoshop needed): `photoshop_dom_info`, `photoshop_dom_lookup_class`,
   `photoshop_dom_get_member`, `photoshop_dom_get_enum_values`, `photoshop_dom_search`
 
